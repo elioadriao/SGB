@@ -1,18 +1,27 @@
-<div ng-controller="custoOportunidadeController">
-	<div class="row">
-		<div class="page-header">
-			<h1>Custo de Oportunidade</h1>
-			<a href="" ng-click="delete()"><span class="glyphicon glyphicon-trash"></span></a>
-			<a href="" data-toggle="modal" data-target="#custoOportunidadeModal"><span class="glyphicon glyphicon-pencil"></span></a>
+<div ng-controller="custoOportunidade">
+	<nav class="navbar navbar-default navbar-fixed-top" style="margin-left: 250px">
+		<div class="container-fluid">
+			<div class="navbar-header">
+				<a class="navbar-brand" href="">Custo de Oportunidade</a>
+			</div>
+			<ul class="nav pager">
+					<li class="navbar-right" role="presentation">
+						<a href="" ng-click="delete()"><span class="glyphicon glyphicon-trash"></span></a>
+					</li>
+
+					<li class="navbar-right" role="presentation">
+						<a href="" data-toggle="modal" data-target="#custoOportunidadeModal"><span class="glyphicon glyphicon-pencil"></span></a>
+					</li>
+			</ul>
 		</div>
-	</div>
+	</nav>
 
 	<div class="row" ng-init="initRebanhoPeso()">
 		<div class="col-md-4">
 			<table class="table table-responsive table-hover table-sm table-bordered">
 				<thead class="thead-inverse">
 					<th>1º Da Terra</th>
-					<th>Valores</th>				
+					<th>Valores</th>
 				</thead>
 				<tbody class="basel-table-body">
 				<tr>
@@ -46,7 +55,7 @@
 			<table class="table table-responsive table-hover table-sm table-bordered">
 				<thead class="thead-inverse">
 					<th>2º Dos Animais</th>
-					<th>Valores</th>				
+					<th>Valores</th>
 				</thead>
 				<tbody class="basel-table-body">
 				<tr>
@@ -80,7 +89,7 @@
 			<table class="table table-responsive table-hover table-sm table-bordered">
 				<thead class="thead-inverse">
 					<th>3º Dos Desembolsos</th>
-					<th>Valores</th>				
+					<th>Valores</th>
 				</thead>
 				<tbody class="basel-table-body">
 				<tr>
@@ -114,7 +123,7 @@
 			<table class="table table-responsive table-hover table-sm table-bordered">
 				<thead class="thead-inverse">
 					<th>Indices Produtivos</th>
-					<th>Valores</th>				
+					<th>Valores</th>
 				</thead>
 				<tbody class="basel-table-body">
 				<tr>
@@ -156,7 +165,7 @@
 			<table class="table table-responsive table-hover table-sm table-bordered">
 				<thead class="thead-inverse">
 					<th>Indices Economicos</th>
-					<th>Valores</th>				
+					<th>Valores</th>
 				</thead>
 				<tbody class="basel-table-body">
 				<tr>

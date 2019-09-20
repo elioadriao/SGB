@@ -1,16 +1,22 @@
-<div ng-controller="custoOperacionalController">
-	<div class="row">
-		<div class="page-header">
-			<h1>Custo Operacional</h1>
-			<a href="" ng-click="delete()"><span class="glyphicon glyphicon-trash"></span></a>
+<div ng-controller="custoOperacional">
+	<nav class="navbar navbar-default navbar-fixed-top" style="margin-left: 250px">
+		<div class="container-fluid">
+			<div class="navbar-header">
+				<a class="navbar-brand" href="">Custo Operacional</a>
+			</div>
+			<ul class="nav pager">
+					<li class="navbar-right" role="presentation">
+						<a href="" ng-click="delete()"><span class="glyphicon glyphicon-trash"></span></a>
+					</li>
+			</ul>
 		</div>
-	</div>
+	</nav>
 
 	<div class="row">
 		<table class="table table-responsive table-hover table-sm table-bordered" ng-init="initRebanhoQtd()">
 			<thead class="thead-inverse">
 				<th>Descrição</th>
-				<th>Janeiro</th>				
+				<th>Janeiro</th>
 				<th>Fevereiro</th>
 				<th>Março</th>
 				<th>Abril</th>
@@ -22,7 +28,6 @@
 				<th>Outubro</th>
 				<th>Novembro</th>
 				<th>Dezembro</th>
-				<th class="text-center">R$</th>
 			</thead>
 			<tbody class="basel-table-body">
 			<tr ng-repeat="item in custo_operacional">
@@ -46,7 +51,7 @@
 		<table class="table table-responsive table-hover table-sm table-bordered">
 			<thead class="thead-inverse">
 				<th class="text-center">R$</th>
-				<th>Janeiro</th>				
+				<th>Janeiro</th>
 				<th>Fevereiro</th>
 				<th>Março</th>
 				<th>Abril</th>

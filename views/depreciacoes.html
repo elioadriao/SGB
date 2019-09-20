@@ -1,12 +1,20 @@
-<div ng-controller="depreciacoesController">
-	<div class="row">
-		<div class="page-header">
-			<h1>Depreciacões <small>Gerais</small></h1>
+<div ng-controller="depreciacoes">
+	<nav class="navbar navbar-default navbar-fixed-top" style="margin-left: 250px">
+		<div class="container-fluid">
+			<div class="navbar-header">
+				<a class="navbar-brand" href="">Depreciacões <small>Gerais</small></a>
+			</div>
+			<ul class="nav pager">
+					<li class="navbar-right" role="presentation">
+						<a href="" ng-click="delete()"><span class="glyphicon glyphicon-trash"></span></a>
+					</li>
 
-			<a href="" ng-click="delete()"><span class="glyphicon glyphicon-trash"></span></a>
-			<a href="" data-toggle="modal" data-target="#depreciacoesModal"><span class="glyphicon glyphicon-paperclip"></span></a>
+					<li class="navbar-right" role="presentation">
+						<a href="" data-toggle="modal" data-target="#depreciacoesModal"><span class="glyphicon glyphicon-paperclip"></span></a>
+					</li>
+			</ul>
 		</div>
-	</div>
+	</nav>
 
 	<div class="row">
 		<table class="table table-responsive table-hover table-sm table-bordered" ng-init="initInventario()">
@@ -43,7 +51,7 @@
 				</div>
 
 				<div class="modal-body">
-					<form class="basel-form">						
+					<form class="basel-form">
 						<div class="form-group">
 							<input type="hidden" class="form-control" ng-model="form.id">
 						</div>

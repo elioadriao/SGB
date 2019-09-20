@@ -1,4 +1,5 @@
-<html ng-app="cdg" ng-controller="mainController">
+<!DOCTYPE html>
+<html ng-app="cdg" ng-controller="index">
 <head>
 	<title>SISGEBO</title>
     <meta charset="UTF-8">
@@ -19,226 +20,149 @@
 	<script src="app.js"></script>
 
 	<!-- Controllers -->
-	<script src="controllers/mainController.js"></script>
-	<script src="controllers/rebanhoController.js"></script>
-	<script src="controllers/manutencaoController.js"></script>
-	<script src="controllers/benfeitoriasController.js"></script>
-	<script src="controllers/maquinasController.js"></script>
-	<script src="controllers/inicioController.js"></script>
-	<script src="controllers/usuariosController.js"></script>
-	<script src="controllers/loginController.js"></script>
-	<script src="controllers/evolucaoController.js"></script>
-	<script src="controllers/criaController.js"></script>
-    <script src="controllers/inventarioController.js"></script>
-    <script src="controllers/depreciacoesController.js"></script>
-    <script src="controllers/variacaoRebanhoController.js"></script>
-    <script src="controllers/custoFixoController.js"></script>
-    <script src="controllers/custoVariavelController.js"></script>
-    <script src="controllers/custoAdmController.js"></script>
-    <script src="controllers/investimentoController.js"></script>
-    <script src="controllers/custoOperacionalController.js"></script>
-    <script src="controllers/custoOportunidadeController.js"></script>
-    <script src="controllers/custoTotalController.js"></script>
-    <script src="controllers/receitaController.js"></script>
-    <script src="controllers/balancoController.js"></script>
-    <script src="controllers/analiseController.js"></script>
-    <script src="controllers/fluxoCaixaController.js"></script>
-    <script src="controllers/vplController.js"></script>
-    <script src="controllers/equilibrioController.js"></script>
+	<script src="controllers/index.js"></script>
+	<script src="controllers/inicio.js"></script>
+	<script src="controllers/login.js"></script>
+  <script src="controllers/inventario.js"></script>
+  <script src="controllers/depreciacoes.js"></script>
+  <script src="controllers/variacaoRebanho.js"></script>
+  <script src="controllers/custoFixo.js"></script>
+  <script src="controllers/custoVariavel.js"></script>
+  <script src="controllers/custoAdm.js"></script>
+  <script src="controllers/investimento.js"></script>
+  <script src="controllers/custoOperacional.js"></script>
+  <script src="controllers/custoOportunidade.js"></script>
+  <script src="controllers/custoTotal.js"></script>
+  <script src="controllers/receita.js"></script>
+  <script src="controllers/balanco.js"></script>
+  <script src="controllers/analise.js"></script>
+  <script src="controllers/fluxoCaixa.js"></script>
+  <script src="controllers/equilibrio.js"></script>
 </head>
 <body>
 	<!-- Menu -->
-	<nav class="navbar navbar-default navbar-fixed-bottom" id="menubar">
+	<nav class="navbar navbar-default navbar-fixed-top" style="width:250px" id="menubar">
 		<div class="container-fluid">
-			<!--div class="navbar-header">
-				<a class="navbar-brand" href="#/">SISGEBO</a>
-			</div-->
-			<ul class="nav nav-pills">
-				<li class="" role="presentation">
-					<a href="" ng-click="menuPro()"><span class="glyphicon glyphicon-eye-open"> Projecao</a>
-			  	</li>
+			<div class="navbar-header">
+				<a class="navbar-brand" href="#/" style="padding:5px 15px 5px 15px">
+					<img alt="SISGEBO" src="assets/logos/brand.png" class="img-rounded">
+				</a>
+				<a class="navbar-brand" href="" ng-click="menu()">Menu</a>
+			</div>
+			<ul class="nav pager">
+					<li class="" role="presentation">
+						<a href="" ng-click="prev()"><span class="glyphicon glyphicon-chevron-left"></span></a>
+					</li>
 
-			  	<li class="" role="presentation">
-					<a href="" ng-click="menuAdm()"><span class="glyphicon glyphicon-usd"> Administrativo</a>
-			  	</li>
-
-				<li class="dropdown navbar-right" role="presentation">
-					<a href="" data-toggle="dropdown"><span class="glyphicon glyphicon-user"></a>
-					<ul class="dropdown-menu">
-			        	<li role="presentation"><a href="" ng-click="logoff()">Deslogar</a></li>
-					</ul>
-				</li>
-
-				<li class="navbar-right" role="presentation">
-					<a href="" ng-click="next()"><span class="glyphicon glyphicon-chevron-right"></span></a>
-				</li>
-
-				<li class="navbar-right" role="presentation">
-					<a href="" ng-click="prev()"><span class="glyphicon glyphicon-chevron-left"></span></a>
-				</li>
+					<li class="" role="presentation">
+						<a href="" ng-click="next()"><span class="glyphicon glyphicon-chevron-right"></span></a>
+					</li>
 			</ul>
 		</div>
 	</nav>
 
-	<!-- Onde será carregada a view -->
 	<div ng-view="" class="container"></div>
 
-	<div class="modal fade" id="projecaoMenu" tabindex="-1" role="dialog">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                	<h4 class="text-center">MENU PROJECAO</h4>
-                </div>
-                <div class="modal-body col-md-12">
-                	<div class="col-md-6">
-                		<div class="btn-group" role="group">
-                            <button type="button" class="btn btn-sq-lg btn-info" ng-click="redir('/maquinas')">Maquinas</button>
-                        </div>
-                	</div>
-
-                	<div class="col-md-6">
-                		<div class="btn-group" role="group">
-                            <button type="button" class="btn btn-sq-lg btn-info" ng-click="redir('/benfeitorias')">Benfeitorias</button>
-                        </div>
-                	</div>
-
-                	<div class="col-md-6">
-                		<div class="btn-group" role="group">
-                            <button type="button" class="btn btn-sq-lg btn-success" ng-click="redir('/manutencao')">Manutencao</button>
-                        </div>
-                	</div>
-
-                	<div class="col-md-6">
-                		<div class="btn-group" role="group">
-                            <button type="button" class="btn btn-sq-lg btn-success" ng-click="redir('/rebanho')">Rebanho</button>
-                        </div>
-                	</div>
-
-                	<div class="col-md-6">
-                		<div class="btn-group" role="group">
-                            <button type="button" class="btn btn-sq-lg btn-info" ng-click="redir('/evolucao')">Evolução de Rebanho</button>
-                        </div>
-                	</div>
-
-                	<div class="col-md-6">
-                		<div class="btn-group" role="group">
-                            <button type="button" class="btn btn-sq-lg btn-info" ng-click="redir('/cria')">Cria</button>
-                        </div>
-                	</div>
-                </div>
-                <div class="modal-footer">
-                </div>
-            </div>
+  <div class="modal fade" id="menu" role="dialog">
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+        	<h4 class="text-center">MENU ADMINISTRAÇÃO</h4>
         </div>
-    </div>
 
-    <div class="modal fade" id="admMenu" tabindex="-1" role="dialog">
-        <div class="modal-dialog modal-lg" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                	<h4 class="text-center">MENU ADMINISTRACAO</h4>
-                </div>
-                <div class="modal-body col-md-12">
-                	<div class="col-md-3">
-                		<div class="btn-group" role="group">
-                            <button type="button" class="btn btn-sq-lg btn-info" ng-click="redir('/inventario')">Inventario</button>
-                        </div>
-                	</div>
-
-                	<div class="col-md-3">
-                		<div class="btn-group" role="group">
-                            <button type="button" class="btn btn-sq-lg btn-info" ng-click="redir('/depreciacoes')">Depreciacoes</button>
-                        </div>
-                	</div>
-
-                	<div class="col-md-3">
-                		<div class="btn-group" role="group">
-                            <button type="button" class="btn btn-sq-lg btn-info" ng-click="redir('/variacaoRebanho')">Variacao Rebanho</button>
-                        </div>
-                	</div>
-
-                	<div class="col-md-3">
-                		<div class="btn-group" role="group">
-                            <button type="button" class="btn btn-sq-lg btn-info" ng-click="redir('/custoFixo')">Custo Fixo</button>
-                        </div>
-                	</div>
-
-                	<div class="col-md-3">
-                		<div class="btn-group" role="group">
-                            <button type="button" class="btn btn-sq-lg btn-success" ng-click="redir('/custoVariavel')">Custo Variavel</button>
-                        </div>
-                	</div>
-
-                	<div class="col-md-3">
-                		<div class="btn-group" role="group">
-                            <button type="button" class="btn btn-sq-lg btn-success" ng-click="redir('/custoAdm')">Despesas Administrativas</button>
-                        </div>
-                	</div>
-
-                	<div class="col-md-3">
-                		<div class="btn-group" role="group">
-                            <button type="button" class="btn btn-sq-lg btn-success" ng-click="redir('/investimento')">Investimentos</button>
-                        </div>
-                	</div>
-
-                	<div class="col-md-3">
-                		<div class="btn-group" role="group">
-                            <button type="button" class="btn btn-sq-lg btn-success" ng-click="redir('/custoOperacional')">Custo Operacional</button>
-                        </div>
-                	</div>
-
-                	<div class="col-md-3">
-                		<div class="btn-group" role="group">
-                            <button type="button" class="btn btn-sq-lg btn-info" ng-click="redir('/custoOportunidade')">Custo de Oportunidade</button>
-                        </div>
-                	</div>
-
-                	<div class="col-md-3">
-                		<div class="btn-group" role="group">
-                            <button type="button" class="btn btn-sq-lg btn-info" ng-click="redir('/custoTotal')">Custo Total</button>
-                        </div>
-                	</div>
-
-                	<div class="col-md-3">
-                		<div class="btn-group" role="group">
-                            <button type="button" class="btn btn-sq-lg btn-info" ng-click="redir('/receita')">Receitas</button>
-                        </div>
-                	</div>
-
-                	<div class="col-md-3">
-                		<div class="btn-group" role="group">
-                            <button type="button" class="btn btn-sq-lg btn-info" ng-click="redir('/balanco')">Balanco Patrimonial</button>
-                        </div>
-                	</div>
-
-                	<div class="col-md-3">
-                		<div class="btn-group" role="group">
-                            <button type="button" class="btn btn-sq-lg btn-success" ng-click="redir('/analise')">Analise de Resultados</button>
-                        </div>
-                	</div>
-
-                	<div class="col-md-3">
-                		<div class="btn-group" role="group">
-                            <button type="button" class="btn btn-sq-lg btn-success" ng-click="redir('/fluxoCaixa')">Fluxo de Caixa</button>
-                        </div>
-                	</div>
-
-                    <div class="col-md-3">
-                        <div class="btn-group" role="group">
-                            <button type="button" class="btn btn-sq-lg btn-success" ng-click="redir('/vpl')">V.P.L.</button>
-                        </div>
-                    </div>
-
-                    <div class="col-md-3">
-                        <div class="btn-group" role="group">
-                            <button type="button" class="btn btn-sq-lg btn-success" ng-click="redir('/equilibrio')">Ponto de Equilibrio</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                </div>
+        <div class="modal-body col-md-12">
+        	<div class="col-md-3">
+        		<div class="btn-group" role="group">
+              <button type="button" class="btn btn-sq-lg btn-info" ng-click="redir('/inventario')">Inventario</button>
             </div>
+        	</div>
+
+        	<div class="col-md-3">
+        		<div class="btn-group" role="group">
+              <button type="button" class="btn btn-sq-lg btn-info" ng-click="redir('/depreciacoes')">Depreciacoes</button>
+            </div>
+        	</div>
+
+        	<div class="col-md-3">
+        		<div class="btn-group" role="group">
+              <button type="button" class="btn btn-sq-lg btn-info" ng-click="redir('/variacaoRebanho')">Variacao Rebanho</button>
+            </div>
+        	</div>
+
+        	<div class="col-md-3">
+        		<div class="btn-group" role="group">
+              <button type="button" class="btn btn-sq-lg btn-info" ng-click="redir('/custoFixo')">Custo Fixo</button>
+            </div>
+        	</div>
+
+        	<div class="col-md-3">
+        		<div class="btn-group" role="group">
+              <button type="button" class="btn btn-sq-lg btn-success" ng-click="redir('/custoVariavel')">Custo Variavel</button>
+            </div>
+        	</div>
+
+        	<div class="col-md-3">
+        		<div class="btn-group" role="group">
+              <button type="button" class="btn btn-sq-lg btn-success" ng-click="redir('/custoAdm')">Despesas Administrativas</button>
+            </div>
+        	</div>
+
+        	<div class="col-md-3">
+        		<div class="btn-group" role="group">
+              <button type="button" class="btn btn-sq-lg btn-success" ng-click="redir('/investimento')">Investimentos</button>
+            </div>
+        	</div>
+
+        	<div class="col-md-3">
+        		<div class="btn-group" role="group">
+              <button type="button" class="btn btn-sq-lg btn-success" ng-click="redir('/custoOperacional')">Custo Operacional</button>
+            </div>
+        	</div>
+
+        	<div class="col-md-3">
+        		<div class="btn-group" role="group">
+              <button type="button" class="btn btn-sq-lg btn-info" ng-click="redir('/custoOportunidade')">Custo de Oportunidade</button>
+            </div>
+        	</div>
+
+        	<div class="col-md-3">
+        		<div class="btn-group" role="group">
+              <button type="button" class="btn btn-sq-lg btn-info" ng-click="redir('/custoTotal')">Custo Total</button>
+            </div>
+        	</div>
+
+        	<div class="col-md-3">
+        		<div class="btn-group" role="group">
+              <button type="button" class="btn btn-sq-lg btn-info" ng-click="redir('/receita')">Receitas</button>
+            </div>
+        	</div>
+
+        	<div class="col-md-3">
+        		<div class="btn-group" role="group">
+              <button type="button" class="btn btn-sq-lg btn-info" ng-click="redir('/balanco')">Balanco Patrimonial</button>
+            </div>
+        	</div>
+
+        	<div class="col-md-3">
+        		<div class="btn-group" role="group">
+              <button type="button" class="btn btn-sq-lg btn-success" ng-click="redir('/analise')">Analise de Resultados</button>
+            </div>
+        	</div>
+
+        	<div class="col-md-3">
+        		<div class="btn-group" role="group">
+              <button type="button" class="btn btn-sq-lg btn-success" ng-click="redir('/fluxoCaixa')">Fluxo de Caixa</button>
+            </div>
+        	</div>
+
+          <div class="col-md-3">
+            <div class="btn-group" role="group">
+              <button type="button" class="btn btn-sq-lg btn-success" ng-click="redir('/equilibrio')">Ponto de Equilibrio</button>
+            </div>
+          </div>
         </div>
+      </div>
     </div>
+  </div>
 </body>
 </html>

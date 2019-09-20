@@ -1,11 +1,10 @@
 var electron = require('electron');
 var app = electron.app;
 var BrowserWindow = electron.BrowserWindow;
+var Menu = electron.Menu;
 
-// referência global para manter a instância da janela até que sejam fechadas pelo usuário então ele irá ser fechado quando o JavaScript fizer Garbage collection
 var mainWindow = null;
 
-// Sair da aplicação quando todas as janelas forem fechadas
 app.on('window-all-closed', function() {
   if (process.platform != 'darwin') {
     app.quit();
@@ -13,23 +12,13 @@ app.on('window-all-closed', function() {
 });
 
 app.on('ready', function() {
-  // Cria a janela do browser.
-  mainWindow = new BrowserWindow({
-    titleBarStyle: 'hidden',
-    width: 1280,
-    height: 720,
-    icon: __dirname + '/model/icone.ico'
-  });
+  Menu.setApplicationMenu(null);
 
-  // Carrega o arquivo html principal.
+  mainWindow = new BrowserWindow({ width: 1280, height: 720 });
+
   mainWindow.loadURL('file://' + __dirname + '/index.html');
-
   mainWindow.webContents.openDevTools();
 
-  // aber o DevTools. (console, inspecionar elemento, etc)
-  // mainWindow.webContents.openDevTools(); 
-
-  // Evento emitido quando a janela é fechada, usado para destruir instancia.
   mainWindow.on('closed', function() {
     mainWindow = null;
   });

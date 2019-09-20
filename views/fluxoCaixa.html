@@ -1,16 +1,22 @@
-<div ng-controller="fluxoCaixaController">
-	<div class="row">
-		<div class="page-header">
-			<h1>Fluxo de Caixa</h1>
-			<a href="" ng-click="delete()"><span class="glyphicon glyphicon-trash"></span></a>
+<div ng-controller="fluxoCaixa">
+	<nav class="navbar navbar-default navbar-fixed-top" style="margin-left: 250px">
+		<div class="container-fluid">
+			<div class="navbar-header">
+				<a class="navbar-brand" href="">Fluxo de Caixa</a>
+			</div>
+			<ul class="nav pager">
+					<li class="navbar-right" role="presentation">
+						<a href="" ng-click="delete()"><span class="glyphicon glyphicon-trash"></span></a>
+					</li>
+			</ul>
 		</div>
-	</div>
+	</nav>
 
 	<div class="row">
 		<table class="table table-responsive table-hover table-sm table-bordered" ng-init="initReceita()">
 			<thead class="thead-inverse">
 				<th>Descrição</th>
-				<th>Janeiro</th>				
+				<th>Janeiro</th>
 				<th>Fevereiro</th>
 				<th>Março</th>
 				<th>Abril</th>

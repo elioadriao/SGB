@@ -1,9 +1,11 @@
-<div ng-controller="analiseController">
-	<div class="row">
-		<div class="page-header">
-			<h1>Analise de Resultados</h1>
+<div ng-controller="analise">
+	<nav class="navbar navbar-default navbar-fixed-top" style="margin-left: 250px">
+		<div class="container-fluid">
+			<div class="navbar-header">
+				<a class="navbar-brand" href="">Analise de Resultados</a>
+			</div>
 		</div>
-	</div>
+	</nav>
 
 	<div class="row" ng-init="initRebanhoArea()">
 		<div class="col-md-6">
@@ -11,7 +13,7 @@
 				<thead class="thead-inverse">
 					<th>Custos</th>
 					<th>Valor</th>
-					<th>%</th>				
+					<th>%</th>
 				</thead>
 				<tbody class="table-body">
 				<tr>
@@ -51,7 +53,7 @@
 			<table class="table table-responsive table-hover table-sm table-bordered">
 				<thead class="thead-inverse">
 					<th>Custos</th>
-					<th>Valor</th>				
+					<th>Valor</th>
 				</thead>
 				<tbody class="table-body">
 				<tr>
@@ -77,7 +79,7 @@
 				<tr>
 					<th>Lucro Operacional/Ha</th>
 					<td>{{total_lucro_o_ha | number:2}}</td>
-				</tr>				
+				</tr>
 				</tbody>
 			</table>
 		</div>

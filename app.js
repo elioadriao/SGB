@@ -8,12 +8,12 @@
  }]);
 
  app.run(['$rootScope', '$http', '$route', '$location', '$cookieStore', function($rootScope, $http, $route, $location, $cookieStore) {
-    
+
     $rootScope.globals = $cookieStore.get('globals') || {};
     if ($rootScope.globals.currentUser) {
         $http.defaults.headers.common['Authorization'] = 'Basic ' + $rootScope.globals.currentUser.authdata;
     }
- 
+
     $rootScope.$on('$locationChangeStart', function (event, next, current) {
         // redirect to login page if not logged in
         if (!$rootScope.globals.currentUser) {
@@ -24,121 +24,79 @@
         }
     });
 
-
-    //getting routes
     angular.forEach(routes, function (route) {
     	$routeProviderReference.when( route.when, route.data );
     });
 
-    /** 
-    *	For new routes:
-    *	$routeProviderReference.when('/when',{
-	*		controller: 'yourController',
-	*		templateUrl: 'your-view.html'
-    *   })
-    *
-    */
     $routeProviderReference.when('/equilibrio',{
-        controller: 'equilibrioController',
+        controller: 'equilibrio',
         templateUrl: 'views/equilibrio.html'
         });
-    $routeProviderReference.when('/vpl',{
-        controller: 'vplController',
-        templateUrl: 'views/vpl.html'
-        });
     $routeProviderReference.when('/fluxoCaixa',{
-        controller: 'fluxoCaixaController',
+        controller: 'fluxoCaixa',
         templateUrl: 'views/fluxoCaixa.html'
         });
     $routeProviderReference.when('/analise',{
-        controller: 'analiseController',
+        controller: 'analise',
         templateUrl: 'views/analise.html'
         });
     $routeProviderReference.when('/balanco',{
-        controller: 'balancoController',
+        controller: 'balanco',
         templateUrl: 'views/balanco.html'
         });
     $routeProviderReference.when('/receita',{
-        controller: 'receitaController',
+        controller: 'receita',
         templateUrl: 'views/receita.html'
         });
     $routeProviderReference.when('/custoTotal',{
-        controller: 'custoTotalController',
+        controller: 'custoTotal',
         templateUrl: 'views/custoTotal.html'
         });
     $routeProviderReference.when('/custoOportunidade',{
-        controller: 'custoOportunidadeController',
+        controller: 'custoOportunidade',
         templateUrl: 'views/custoOportunidade.html'
         });
     $routeProviderReference.when('/custoOperacional',{
-        controller: 'custoOperacionalController',
+        controller: 'custoOperacional',
         templateUrl: 'views/custoOperacional.html'
         });
     $routeProviderReference.when('/investimento',{
-        controller: 'investimentoController',
+        controller: 'investimento',
         templateUrl: 'views/investimento.html'
         });
     $routeProviderReference.when('/custoAdm',{
-        controller: 'custoAdmController',
+        controller: 'custoAdm',
         templateUrl: 'views/custoAdm.html'
         });
     $routeProviderReference.when('/custoVariavel',{
-        controller: 'custoVariavelController',
+        controller: 'custoVariavel',
         templateUrl: 'views/custoVariavel.html'
         });
     $routeProviderReference.when('/custoFixo',{
-        controller: 'custoFixoController',
+        controller: 'custoFixo',
         templateUrl: 'views/custoFixo.html'
         });
     $routeProviderReference.when('/variacaoRebanho',{
-        controller: 'variacaoRebanhoController',
+        controller: 'variacaoRebanho',
         templateUrl: 'views/variacaoRebanho.html'
         });
     $routeProviderReference.when('/depreciacoes',{
-        controller: 'depreciacoesController',
+        controller: 'depreciacoes',
         templateUrl: 'views/depreciacoes.html'
         });
     $routeProviderReference.when('/inventario',{
-        controller: 'inventarioController',
+        controller: 'inventario',
         templateUrl: 'views/inventario.html'
         });
-    $routeProviderReference.when('/cria',{
-        controller: 'criaController',
-        templateUrl: 'views/cria.html'
-        });
     $routeProviderReference.when('/',{
-        controller: 'inicioController',
+        controller: 'inicio',
         templateUrl: 'views/inicio.html'
-        });
-    $routeProviderReference.when('/rebanho',{
-        controller: 'rebanhoController',
-        templateUrl: 'views/rebanho.html'
-        });
-    $routeProviderReference.when('/null',{
-        controller: 'usuariosController',
-        templateUrl: 'views/usuarios.html'
-        });
-    $routeProviderReference.when('/manutencao',{
-        controller: 'manutencaoController',
-        templateUrl: 'views/manutencao.html'
-        });
-    $routeProviderReference.when('/benfeitorias',{
-        controller: 'benfeitoriasController',
-        templateUrl: 'views/benfeitorias.html'
-        });
-    $routeProviderReference.when('/maquinas',{
-        controller: 'maquinasController',
-        templateUrl: 'views/maquinas.html'
-        });
-    $routeProviderReference.when('/evolucao',{
-        controller: 'evolucaoController',
-        templateUrl: 'views/evolucao.html'
-        });
+        });;
     $routeProviderReference.when('/login',{
-        controller: 'loginController',
+        controller: 'login',
         templateUrl: 'views/login.html'
         });
-    
+
     $routeProviderReference.otherwise({ redirectTo: '/' });
     $route.reload();
 }]);

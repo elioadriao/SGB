@@ -9,45 +9,22 @@
     "author": "Helio Adriao <elio.adriao@gmail.com>",
     "license": "MIT",
     "description": "Sistema de Gerenciamento para Bovinocultura de Corte",
-    "bugs": {
-        "url": "https://github.com/elioadriao/SISGEBO"
-    },
-    "homepage": "https://github.com/elioadriao/SISGEBO",
     "scripts": {
-        "postinstall": "install-app-deps",
         "start": "electron main.js",
-        "dist": "build --linux --dir",
-        "win32": "build --win --ia32",
-        "win64": "build --win --x64",
-        "linux32": "build --linux deb tar.xz --ia32",
-        "linux64": "build --linux deb tar.xz --x64"
+        "package-mac": "electron-packager . --overwrite --platform=darwin --arch=x64 --icon=assets/icons/mac/icon.icns --prune=true --out=release-builds",
+        "package-win": "electron-packager . --overwrite --asar=true --platform=win32 --arch=ia32 --icon=assets/icons/win/icon.ico --prune=true --out=release-builds --version-string.CompanyName=\"UFAL\" --version-string.FileDescription=\"Sistema de Gerenciamento para Bovinocultura de Corte\" --version-string.ProductName=\"SISGEBO\"",
+        "package-lin": "electron-packager . --overwrite --platform=linux --arch=x64 --icon=assets/icons/png/icon.png --prune=true --out=release-builds"
     },
     "dependencies": {
+        "electron": "1.4.13",
         "jquery": "2.2.2",
-        "angular": "1.5.1",
         "basel-cli": "*",
+        "angular": "1.5.1",
         "angular-route": "1.5.1",
         "angular-cookies": "1.5.1",
         "angular-utils-pagination": "0.11.0"
     },
     "devDependencies": {
-        "electron-prebuilt": "1.4.13",
-        "electron-builder": "^13.8.2"
-    },
-    "build": {
-        "appId": "sisgebo.pibic",
-        "files": [
-            "./node_modules/**/*",
-            "**/*",
-            "model/icone.ico"
-        ],
-        "asar": true,
-        "mac": {
-            "category": "public.app-category.tools"
-        }
-    },
-    "titel": "sisgebo",
-    "database": "database",
-    "title": "sisgebo",
-    "type": "simple"
+        "electron-packager": "^9.0.1"
+    }
 }

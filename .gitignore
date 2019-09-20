@@ -1,5 +1,5 @@
 /node_modules
-/dist
+/release-builds
 *.txt
 .idea/
 package-lock.json

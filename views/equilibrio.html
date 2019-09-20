@@ -1,11 +1,20 @@
-<div ng-controller="equilibrioController">
-	<div class="row">
-		<div class="page-header">
-			<h1>Ponto de Equilibrio</h1>
-			<a href="" ng-click="delete()"><span class="glyphicon glyphicon-trash"></span></a>
-			<a href="" ng-click="edit()"><span class="glyphicon glyphicon-pencil"></span></a>
+<div ng-controller="equilibrio">
+	<nav class="navbar navbar-default navbar-fixed-top" style="margin-left: 250px">
+		<div class="container-fluid">
+			<div class="navbar-header">
+				<a class="navbar-brand" href="">Ponto de Equilibrio</a>
+			</div>
+			<ul class="nav pager">
+					<li class="navbar-right" role="presentation">
+						<a href="" ng-click="delete()"><span class="glyphicon glyphicon-trash"></span></a>
+					</li>
+
+					<li class="navbar-right" role="presentation">
+						<a href="" ng-click="edit()"><span class="glyphicon glyphicon-pencil"></span></a>
+					</li>
+			</ul>
 		</div>
-	</div>
+	</nav>
 
 	<div class="row">
 		<table class="table table-responsive table-hover table-sm table-bordered" ng-init="initCustoOperacional()">

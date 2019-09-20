@@ -1,10 +1,16 @@
-<div ng-controller="variacaoRebanhoController">
-	<div class="row">
-		<div class="page-header">
-			<h1>Variação do Rebanho</h1>
-			<a href="" ng-click="delete()"><span class="glyphicon glyphicon-trash"></span></a>
+<div ng-controller="variacaoRebanho">
+	<nav class="navbar navbar-default navbar-fixed-top" style="margin-left: 250px">
+		<div class="container-fluid">
+			<div class="navbar-header">
+				<a class="navbar-brand" href="">Variação do Rebanho</a>
+			</div>
+			<ul class="nav pager">
+					<li class="navbar-right" role="presentation">
+						<a href="" ng-click="delete()"><span class="glyphicon glyphicon-trash"></span></a>
+					</li>
+			</ul>
 		</div>
-	</div>
+	</nav>
 
 	<div class="row text-center" ng-init="initRebanhoPeso()">
 		<div class="container-fluid">
@@ -12,7 +18,7 @@
 				<thead class="table-head">
 				<tr>
 					<th>Descrição</th>
-					<th>Janeiro</th>				
+					<th>Janeiro</th>
 					<th>Fevereiro</th>
 					<th>Março</th>
 					<th>Abril</th>
@@ -67,7 +73,7 @@
 			<table class="table table-responsive table-hover table-sm table-bordered">
 			<thead class="thead-inverse">
 				<th class="text-center">R$</th>
-				<th>Janeiro</th>				
+				<th>Janeiro</th>
 				<th>Fevereiro</th>
 				<th>Março</th>
 				<th>Abril</th>
@@ -261,7 +267,7 @@
 				<div class="modal-body">
 					<input type="hidden" class="form-control" ng-model="form.id">
 					<input type="hidden" class="form-control" ng-model="form.propriedadeId_FK">
-					
+
 					<div class="form-group col-md-12">
 						<label>Quantidade da Categoria</label><input type="text" class="form-control" ng-model="form.descricao" readonly>
 					</div>

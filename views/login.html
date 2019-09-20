@@ -1,10 +1,10 @@
-<div class="container" role="dialog" ng-controller="loginController">
-	
+<div class="container" role="dialog" ng-controller="login">
+
 	<div class="container-fluid">
-		<img src="model/8x2r-logo.png" class="img-responsive center-block" />
+		<img src="assets/logos/8x2r-logo.png" class="img-responsive center-block" />
 	</div>
 
-	<div class="modal-dialog modal-sm" role="document">		
+	<div class="modal-dialog modal-sm" role="document">
 		<div class="modal-content">
 			<div class="modal-header">
 				<h4 class="modal-title text-center">Bem Vindo ao Sistema!</h4>
@@ -19,17 +19,17 @@
 				</form>
 			</div>
 			<div class="modal-footer">
-				<h5 class="text-right">Não possui conta?, <a href="" data-toggle="modal" data-target="#loginController">Cadastre-se</a></h5>
+				<h5 class="text-right">Não possui conta?, <a href="" data-toggle="modal" data-target="#login">Cadastre-se</a></h5>
 				<div ng-show="error" class="alert alert-danger">
 					<p class="text-center">
 						<span class="glyphicon glyphicon-exclamation-sign"></span> {{error}}
 					</p>
-				</div>						
+				</div>
 			</div>
 		</div>
 	</div>
 
-	<div class="modal fade" id="loginController" tabindex="-1" role="dialog">
+	<div class="modal fade" id="login" tabindex="-1" role="dialog">
 		<div class="modal-dialog" role="document">
 			<div class="modal-content">
 				<div class="modal-header">
