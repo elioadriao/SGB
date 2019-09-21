@@ -22,7 +22,7 @@
 	<!-- Controllers -->
 	<script src="controllers/index.js"></script>
 	<script src="controllers/inicio.js"></script>
-	<script src="controllers/login.js"></script>
+	<script src="controllers/autenticacao.js"></script>
   <script src="controllers/inventario.js"></script>
   <script src="controllers/depreciacoes.js"></script>
   <script src="controllers/variacaoRebanho.js"></script>
@@ -47,16 +47,19 @@
 				<a class="navbar-brand" href="#/" style="padding:5px 15px 5px 15px">
 					<img alt="SISGEBO" src="assets/logos/brand.png" class="img-rounded">
 				</a>
-				<a class="navbar-brand" href="" ng-click="menu()">Menu</a>
 			</div>
 			<ul class="nav pager">
-					<li class="" role="presentation">
-						<a href="" ng-click="prev()"><span class="glyphicon glyphicon-chevron-left"></span></a>
-					</li>
+				<li class="" role="presentation">
+					<a href="" ng-click="menu()">Menu</a>
+				</li>
 
-					<li class="" role="presentation">
-						<a href="" ng-click="next()"><span class="glyphicon glyphicon-chevron-right"></span></a>
-					</li>
+				<li class="" role="presentation">
+					<a href="" ng-click="prev()"><span class="glyphicon glyphicon-chevron-left"></span></a>
+				</li>
+
+				<li class="" role="presentation">
+					<a href="" ng-click="next()"><span class="glyphicon glyphicon-chevron-right"></span></a>
+				</li>
 			</ul>
 		</div>
 	</nav>
@@ -67,7 +70,7 @@
     <div class="modal-dialog modal-lg" role="document">
       <div class="modal-content">
         <div class="modal-header">
-        	<h4 class="text-center">MENU ADMINISTRAÇÃO</h4>
+        	<h4 class="text-center">MENU</h4>
         </div>
 
         <div class="modal-body col-md-12">

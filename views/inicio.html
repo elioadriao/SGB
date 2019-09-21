@@ -1,5 +1,5 @@
 <div ng-controller="inicio">
-	<nav class="navbar navbar-default navbar-fixed-top" style="margin-left: 250px">
+	<nav class="navbar navbar-default navbar-fixed-top" style="margin-left: 250px" id="infobar">
 		<div class="container-fluid">
 			<div class="navbar-header">
 				<a class="navbar-brand" href="">Inicio</a>
@@ -7,7 +7,7 @@
 		</div>
 	</nav>
 
-	<div class="container" ng-init="list()">
+	<div class="container" ng-init="initInicio()">
     <div class="row">
       <div class="col-xs-12 col-sm-12 col-md-12">
         <div class="jumbotron">
@@ -19,14 +19,16 @@
             <table class="table table-sm table-borderless">
               <thead class="thead-inverse">
                 <th>Propriedade</th>
-                <th>Municipio</th>
-                <th>Area</th>
+								<th>Proprietário</th>
+                <th>Municipio-UF</th>
+                <th>Área</th>
                 <th>Reserva</th>
               </thead>
               <tbody>
                 <tr>
-                  <td>{{atual.nome}}</td>
-                  <td>{{atual.municipio}}</td>
+                  <td>{{atual.nomeacao}}</td>
+									<td>{{atual.proprietario}}</td>
+                  <td>{{atual.municipio}}-{{atual.uf}}</td>
                   <td>{{atual.area}}</td>
                   <td>{{atual.reserva}}</td>
                 </tr>
@@ -48,10 +50,15 @@
 				<div class="modal-body">
 					<form class="basel-form">
 						<div class="form-group"><input type="hidden" class="form-control" ng-model="form.id"></div>
-						<div class="form-group"><input type="hidden" class="form-control" ng-model="form.usuarioLogin_FK"></div>
 
 						<div class="form-group">
-              <label>Nome da Propriedade</label><input type="text" class="form-control" ng-model="form.nome">
+              <label>Nomeação da Propriedade</label><input type="text" class="form-control" ng-model="form.nomeacao">
+            </div>
+						<div class="form-group">
+              <label>Nome do Proprietário</label><input type="text" class="form-control" ng-model="form.proprietario">
+            </div>
+						<div class="form-group">
+              <label>Unidade Federativa </label><select ng-model="form.uf" ng-options="x for (x, y) in uf"></select>
             </div>
 						<div class="form-group">
               <label>Municipio</label><input type="text" class="form-control" ng-model="form.municipio">
@@ -78,7 +85,7 @@
 		</div>
 	</div>
 
-  <div class="modal fade" id="inicioModal" data-keyboard="false" data-backdrop="static" role="dialog">
+  <div class="modal fade" id="inicioEditModal" data-keyboard="false" data-backdrop="static" role="dialog">
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
@@ -87,21 +94,26 @@
         </div>
           <div class="modal-body">
             <form class="basel-form">
-              <div class="form-group"><input type="hidden" class="form-control" ng-model="form.id"></div>
-              <div class="form-group"><input type="hidden" class="form-control" ng-model="form.usuarioLogin_FK"></div>
+							<div class="form-group"><input type="hidden" class="form-control" ng-model="form.id"></div>
 
-              <div class="form-group">
-                <label>Nome da Propriedade</label><input type="text" class="form-control" ng-model="form.nome" ng-value="form.nome">
-              </div>
-              <div class="form-group">
-                <label>Municipio</label><input type="text" class="form-control" ng-model="form.municipio" ng-value="form.municipio">
-              </div>
-              <div class="form-group">
-                <label>Area</label><input type="text" class="form-control" ng-model="form.area" ng-value="form.area">
-              </div>
-              <div class="form-group">
-                <label>Reserva </label><select ng-model="selectedReserva" ng-options="x for (x, y) in reserva"></select>
-              </div>
+							<div class="form-group">
+	              <label>Nomeação da Propriedade</label><input type="text" class="form-control" ng-model="form.nomeacao">
+	            </div>
+							<div class="form-group">
+	              <label>Nome do Proprietário</label><input type="text" class="form-control" ng-model="form.proprietario">
+	            </div>
+							<div class="form-group">
+	              <label>Unidade Federativa </label><select ng-model="form.uf" ng-options="x for (x, y) in uf"></select>
+	            </div>
+							<div class="form-group">
+	              <label>Municipio</label><input type="text" class="form-control" ng-model="form.municipio">
+	            </div>
+							<div class="form-group">
+	              <label>Area</label><input type="text" class="form-control" ng-model="form.area">
+	            </div>
+	            <div class="form-group">
+	              <label>Reserva </label><select ng-model="selectedReserva" ng-options="x for (x, y) in reserva"></select>
+	            </div>
             </form>
           </div>
           <div class="modal-footer">
@@ -125,7 +137,7 @@
           <h4 class="modal-title text-center" id="myModalLabel">Selecione uma Propriedade</h4>
         </div>
         <div class="modal-body">
-          <table class="table table-striped" ng-init="list()">
+          <table class="table table-striped" ng-init="initInicio()">
             <thead class="basel-table-head"><tr>
               <th>Nome</th>
               <th>Municipio</th>
@@ -133,13 +145,13 @@
               <th>Reserva</th>
               <th></th>
             </tr></thead>
-            <tbody class="basel-table-body"><tr ng-repeat="item in items">
+            <tbody class="basel-table-body"><tr ng-repeat="item in propriedades">
               <th>{{item.nome}}</th>
               <td>{{item.municipio}}</td>
               <td>{{item.area}}</td>
               <td>{{item.reserva}}</td>
               <td>
-                  <button class="btn btn-success btn-sq-xs" ng-click="setId(item.id)" data-dismiss="modal"><span class="glyphicon glyphicon-ok"></button>
+                  <button class="btn btn-success btn-sq-xs" ng-click="setAtual(item)" data-dismiss="modal"><span class="glyphicon glyphicon-ok"></button>
               </td>
               <td>
                   <button class="btn btn-info btn-sq-xs" ng-click="edit(item)" data-dismiss="modal"><span class="glyphicon glyphicon-pencil"></button>

@@ -1,5 +1,5 @@
  var $routeProviderReference;
- var app = angular.module('cdg', [require('angular-route'),'angularUtils.directives.dirPagination', 'ngCookies']);
+ var app = angular.module('cdg', [require('angular-route'),'angularUtils.directives.dirPagination']);
  var basel = require('basel-cli');
  var routes = basel.routes();
 
@@ -7,20 +7,16 @@
  	$routeProviderReference = $routeProvider;
  }]);
 
- app.run(['$rootScope', '$http', '$route', '$location', '$cookieStore', function($rootScope, $http, $route, $location, $cookieStore) {
-
-    $rootScope.globals = $cookieStore.get('globals') || {};
-    if ($rootScope.globals.currentUser) {
-        $http.defaults.headers.common['Authorization'] = 'Basic ' + $rootScope.globals.currentUser.authdata;
-    }
+ app.run(['$rootScope', '$http', '$route', '$location', '$window', function($rootScope, $http, $route, $location, $window) {
 
     $rootScope.$on('$locationChangeStart', function (event, next, current) {
-        // redirect to login page if not logged in
-        if (!$rootScope.globals.currentUser) {
+        if ($window.localStorage.getItem("chave") == null) {
             $('#menubar').hide();
-            $location.path('/login');
+            $('#infobar').hide();
+            $location.path('/autenticacao');
         }else{
             $('#menubar').show();
+            $('#infobar').show();
         }
     });
 
@@ -92,9 +88,9 @@
         controller: 'inicio',
         templateUrl: 'views/inicio.html'
         });;
-    $routeProviderReference.when('/login',{
-        controller: 'login',
-        templateUrl: 'views/login.html'
+    $routeProviderReference.when('/autenticacao',{
+        controller: 'autenticacao',
+        templateUrl: 'views/autenticacao.html'
         });
 
     $routeProviderReference.otherwise({ redirectTo: '/' });

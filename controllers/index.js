@@ -1,5 +1,5 @@
 "use strict";
-app.controller("index", function($scope, $rootScope, $location, AuthenticationService){
+app.controller("index", function($scope, $rootScope, $location){
 	$scope.app = basel.config;
 	$scope.menus = basel.menu();
 

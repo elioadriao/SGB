@@ -1,15 +1,53 @@
 "use strict";
-app.controller("inicio", function($scope, $rootScope, $location, $window, AuthenticationService, Propriedade){
+app.controller("inicio", function($scope, $rootScope, $location, $window, Propriedade){
 
-	$scope.reserva = {"10%" : 0.1, "15%" : 0.15, "20%" : 0.2, "25%" : 0.25, "30%" : 0.3, "35%" : 0.35, "40%" : 0.4, "45%" : 0.45, "50%" : 0.5};
+	$scope.reserva = {
+		"10%" : 0.1,
+		"15%" : 0.15,
+		"20%" : 0.2,
+		"25%" : 0.25,
+		"30%" : 0.3,
+		"35%" : 0.35,
+		"40%" : 0.4,
+		"45%" : 0.45,
+		"50%" : 0.5};
+	$scope.uf = {
+		"Acre" : "AC",
+		"Alagoas" : "AL",
+		"Amazonas" : "AM",
+		"Amapá" : "AP",
+		"Bahia" : "BA",
+		"Ceará" : "CE",
+		"Distrito Federal" : "DF",
+		"Espírito Santo" : "ES",
+		"Goiás" : "GO",
+		"Maranhão" : "MA",
+		"Mato Grosso" : "MT",
+		"Mato Grosso do Sul" : "MS",
+		"Minas Gerais" : "MG",
+		"Pará" : "PA",
+		"Paraíba" : "PB",
+		"Paraná" : "PR",
+		"Pernambuco" : "PE",
+		"Piauí" : "PI",
+		"Rio de Janeiro" : "RJ",
+		"Rio Grande do Norte" : "RN",
+		"Rio Grande do Sul" : "RS",
+		"Rondônia" : "RO",
+		"Roraima" : "RR",
+		"Santa Catarina" : "SC",
+		"São Paulo" : "SP",
+		"Sergipe" : "SE",
+		"Tocantins" : "TO",};
+
 	//Lista as Propriedades
-	$scope.list = function(){
-		$scope.idPropriedade = Propriedade.getId();
+	$scope.initInicio = function(){
+		$scope.atual = Propriedade.get();
 
-		if ($scope.idPropriedade == null){
-			basel.database.runAsync("SELECT * FROM propriedade WHERE usuarioLogin_FK='"+$scope.getUser()+"'", function(data){
+		if ($scope.atual == null){
+			basel.database.runAsync("SELECT * FROM propriedade", function(data){
 				if(data[0] != null){
-					$scope.items = data;
+					$scope.propriedades = data;
 					$('#selectModal').modal('show');
 				}else{
 					$('#selectModal').modal('hide');
@@ -17,40 +55,12 @@ app.controller("inicio", function($scope, $rootScope, $location, $window, Authen
 					//Não tem propriedades
 				}
 			});
-		} else {
-			basel.database.runAsync("SELECT * FROM propriedade WHERE id="+$scope.idPropriedade, function(data){
-				if(data[0] != null){
-					$scope.atual = data[0];
-				}else{
-					$('#selectModal').modal('show');
-					//Error
-				}
-			});
 		}
 	}
 
-	$scope.setId = function(id){
-		Propriedade.setId(id);
-		$scope.list();
-	}
-
-	$scope.clearId = function(){
-		Propriedade.clearId();
-		$scope.list();
-	}
-
-	$scope.getUser = function(){
-		if($rootScope.globals.currentUser){
-			return $rootScope.globals.currentUser.username
-		}else{
-			return null;
-		}
-	}
-
-	$scope.logoff = function (){
-		AuthenticationService.ClearCredentials();
-		localStorage.clear();
-		$location.path('/login');
+	$scope.setAtual = function(propriedade){
+		Propriedade.set(propriedade);
+		$scope.atual = propriedade;
 	}
 
 	$scope.hideSelect = function(){
@@ -60,7 +70,7 @@ app.controller("inicio", function($scope, $rootScope, $location, $window, Authen
 	//Salva no Banco
 	$scope.save = function(){
 		$scope.form.reserva = $scope.selectedReserva * $scope.form.area;
-		$('#inicioModal').modal('hide');
+		$('#inicioEditModal').modal('hide');
 
 		var id = $scope.form["id"];
 		delete $scope.form["id"];
@@ -68,7 +78,7 @@ app.controller("inicio", function($scope, $rootScope, $location, $window, Authen
 		basel.database.update("propriedade", $scope.form, {id: id}); //entidade, dados, where
 
 		$scope.form = {};
-		$scope.list();
+		$scope.initInicio();
 	}
 
 	$scope.new = function(){
@@ -77,7 +87,7 @@ app.controller("inicio", function($scope, $rootScope, $location, $window, Authen
 		$('#inicioNewModal').modal('hide');
 
 		basel.database.insert("propriedade", $scope.form); // entidade, dados
-		$scope.list();
+		$scope.initInicio();
 	}
 
 	$scope.cancel = function(){
@@ -87,35 +97,55 @@ app.controller("inicio", function($scope, $rootScope, $location, $window, Authen
 	//Abrindo para editar
 	$scope.edit = function(data){
 		$scope.form = data;
-		$('#inicioModal').modal('show');
+		$('#inicioEditModal').modal('show');
 	}
 
 	//Excluindo
 	$scope.delete = function(data){
-		var Tables = ["propriedade", "inventario", "depreciacoes", "variacao_rebanho_area", "variacao_rebanho_qtd",
-			 "variacao_rebanho_peso", "custo_fixo", "custo_variavel", "custo_adm", "investimento", "custo_operacional",
-			 "receita", "balanco", "custo_oportunidade"];
+		var Tables = [
+			"propriedade",
+			"balanco",
+			"custo_adm",
+			"custo_fixo",
+			"custo_operacional",
+			"custo_oportunidade",
+			"custo_total",
+			"custo_variavel",
+			"depreciacoes",
+			"equilibrio",
+			"fluxo_caixa",
+			"inventario",
+			"investimento",
+			"receita",
+			"variacao_rebanho_area",
+			"variacao_rebanho_qtd",
+			"variacao_rebanho_peso"];
+
 		if(confirm("Deseja realmente Deletar Propriedade?")){
 			for(i in Tables){
 				basel.database.delete(Tables[i], {id: data["id"]});
 			}
 
-			$scope.list();
+			$scope.initInicio();
 		}
 	}
 })
 .factory('Propriedade', ['$window', function ( $window ) {
   var service = {};
 
-  service.setId = function(id){
-		$window.localStorage['idPropriedade'] = id;
+  service.set = function(propriedade){
+		$window.localStorage.setItem('propriedade', JSON.stringify(propriedade));
+	};
+
+	service.get = function(){
+		return JSON.parse($window.localStorage.getItem("propriedade"));
 	};
 
 	service.getId = function(){
-		return $window.localStorage.getItem("idPropriedade");
+		return JSON.parse($window.localStorage.getItem("propriedade")).id;
 	};
 
-	service.clearId = function(){
+	service.clearPropriedade = function(){
 		$window.localStorage.removeItem("idPropriedade");
 	};
 
