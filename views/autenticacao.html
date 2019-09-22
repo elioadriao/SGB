@@ -1,20 +1,20 @@
 <div class="container" role="dialog" ng-controller="autenticacao">
 
 	<div class="container-fluid">
-		<img src="assets/logos/8x2r-logo.png" class="img-responsive center-block" />
+		<img src="assets/logos/logo.png" class="img-responsive center-block" />
 	</div>
 
 	<div class="modal-dialog modal-sm" role="document" ng-init="initAutenticar()">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h4 class="modal-title text-center">Bem Vindo ao Sistema!</h4>
+				<h4 class="modal-title text-center">Bem Vindo ao Sistema</h4>
 			</div>
 			<div class="modal-body">
 				<form class="basel-form" role="form">
 					<div class="form-group"><label>Chave:</label><input type="text" class="form-control" maxlength="23" ng-model="form.chave" placeholder="Informe a Chave de Acesso"></div>
 					<div class="btn-group btn-group-justified" role="group">
             <div class="btn-group" role="group">
-              <button class="btn btn-success" ng-click="new()"><span class="glyphicon glyphicon-ok"></button>
+              <button class="btn btn-success" ng-click="save()"><span class="glyphicon glyphicon-ok"></button>
             </div>
           </div>
 				</form>
@@ -30,15 +30,23 @@
 			<div class="modal-content">
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
-					<h4 class="modal-title text-center" id="myModalLabel">SISGEBO</h4>
+					<h4 class="modal-title text-center" id="myModalLabel">SISGEBO v1.0</h4>
 				</div>
 				<div class="modal-body">
-					<h4>
-						<p class="lead">Seja bem vindo ao Sistema de Gerenciamento Bovino de Corte.</p><hr/>
-						Software de intuito Educacional, implementado apartir da união de conhecimentos dos cursos de Ciencias da Computação e Zootecnia, da Universidade Federal de Alagoas Campus Arapiraca.
-
-						Desenvolvido por Hélio Antônio Adrião dos Santos.
-					</h4>
+					<div class="container-fluid">
+						<img src="assets/logos/ufal.png" class="img-responsive center-block" />
+					</div>
+					<div class="container-fluid">
+						<h3 class="text-center">
+							Sistema de Gerenciamento Bovino de Corte.
+						</h3>
+						<h4 class="text-justify">
+							Software de intuito Educacional, implementado a partir da união
+							dos conhecimentos entre os cursos de Ciências da Computação e Zootecnia
+							da Universidade Federal de Alagoas Campus Arapiraca.
+							Desenvolvido por Hélio Adrião.
+						</h4>
+					</div>
 				</div>
 			</div>
 		</div>

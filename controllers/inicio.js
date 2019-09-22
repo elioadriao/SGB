@@ -43,6 +43,7 @@ app.controller("inicio", function($scope, $rootScope, $location, $window, Propri
 	//Lista as Propriedades
 	$scope.initInicio = function(){
 		$scope.atual = Propriedade.get();
+		$scope.alerta = "";
 
 		if ($scope.atual == null){
 			basel.database.runAsync("SELECT * FROM propriedade", function(data){
@@ -50,9 +51,10 @@ app.controller("inicio", function($scope, $rootScope, $location, $window, Propri
 					$scope.propriedades = data;
 					$('#selectModal').modal('show');
 				}else{
+					$scope.alerta = "Para o funcionamento do Sistema é necessário o cadastro de pelo menos uma Propriedade.";
 					$('#selectModal').modal('hide');
-					$('#inicioNewModal').modal('show');
-					//Não tem propriedades
+					$('#cancelBtn').hide();
+					$('#newModal').modal('show');
 				}
 			});
 		}
@@ -70,7 +72,7 @@ app.controller("inicio", function($scope, $rootScope, $location, $window, Propri
 	//Salva no Banco
 	$scope.save = function(){
 		$scope.form.reserva = $scope.selectedReserva * $scope.form.area;
-		$('#inicioEditModal').modal('hide');
+		$('#editModal').modal('hide');
 
 		var id = $scope.form["id"];
 		delete $scope.form["id"];
@@ -82,9 +84,8 @@ app.controller("inicio", function($scope, $rootScope, $location, $window, Propri
 	}
 
 	$scope.new = function(){
-		$scope.form.usuarioLogin_FK = $scope.getUser();
 		$scope.form.reserva = $scope.selectedReserva * $scope.form.area;
-		$('#inicioNewModal').modal('hide');
+		$('#newModal').modal('hide');
 
 		basel.database.insert("propriedade", $scope.form); // entidade, dados
 		$scope.initInicio();
@@ -97,7 +98,7 @@ app.controller("inicio", function($scope, $rootScope, $location, $window, Propri
 	//Abrindo para editar
 	$scope.edit = function(data){
 		$scope.form = data;
-		$('#inicioEditModal').modal('show');
+		$('#editModal').modal('show');
 	}
 
 	//Excluindo

@@ -13,7 +13,7 @@ app.controller("autenticacao", function($scope, $rootScope, $location, $window){
 		});
 	}
 
-	$scope.new = function(){
+	$scope.save = function(){
 		basel.database.insert("autenticacao", $scope.form);
 		$scope.initAutenticar();
 	}

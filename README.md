@@ -1,5 +1,6 @@
 # SISGEBO
-Sistema de Gerenciamento de Bovinocultura
+Sistema de Gerenciamento de Bovinocultura.
+Software de intuito Educacional, implementado a partir da união dos conhecimentos entre os cursos de Ciências da Computação e Zootecnia da Universidade Federal de Alagoas Campus Arapiraca.
 
 #### Pré Requisitos de Instalação
 **[Node.Js](https://nodejs.org/en/download/package-manager/)**
@@ -7,18 +8,16 @@ Sistema de Gerenciamento de Bovinocultura
 ### Instalação
 >npm install
 
-## Execução
+## Execução de Teste
 >npm start
 
-### Compilação do Executavel
+### Empacotamento do Executável
 
-* **Windows x32:**
-     >npm run win32 
-* **Windows x64:**
-    >npm run win64
+* **Windows:**
+    >npm run package-win
 
-* **Linux x32:**
-    >npm run linux32
+* **Linux:**
+    >npm run package-lin
 
-* **Linux x64:**
-    >npm run linux64
+* **Mac:**
+    >npm run package-mac
