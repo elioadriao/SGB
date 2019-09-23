@@ -19,10 +19,10 @@ app.controller("receita", function($scope, $location, Propriedade){
 		});
 
 		if(res){
-			console.log("Carregou Receita..");
+			console.log("Receita[OK]");
 			$scope.tratarReceita();
 		}else{
-			console.log("Nao Carregou Receita..");
+			console.log("Receita[ERRO]");
 			$scope.createReceita();
 		}
 	}
@@ -49,7 +49,10 @@ app.controller("receita", function($scope, $location, Propriedade){
 
 	/*  */
 	$scope.createReceita = function(){
-		var ESPECIFICACAO = ["Venda de Boi Gordo", "Toutinhos", "Abate"];
+		var ESPECIFICACAO = [
+			"Venda de Boi Gordo",
+			"Toutinhos",
+			"Abate"];
 
 		for(i in ESPECIFICACAO){
 			$scope.form = {};
@@ -69,6 +72,7 @@ app.controller("receita", function($scope, $location, Propriedade){
 			$scope.new();
 		}
 
+		$('#infoModal').modal('show');
 		$scope.initReceita();
 	}
 
@@ -78,7 +82,6 @@ app.controller("receita", function($scope, $location, Propriedade){
 		var id = $scope.form["id"];
 		delete $scope.form["id"];
 		delete $scope.form.$$hashKey;
-		$('#receitaModal').modal('hide');
 
 		basel.database.update("receita", $scope.form, {id: id});
 		//$scope.new();
@@ -101,12 +104,12 @@ app.controller("receita", function($scope, $location, Propriedade){
 
 	$scope.edit = function(data){
 		$scope.form = data;
-		$('#receitaModal').modal('show');
+		$('#saveModal').modal('show');
 	}
 
 	//Excluindo
 	$scope.delete = function(data){
-		if(confirm("Deseja Resetar Receita?")){
+		if(confirm("Resetar Receita?")){
 			basel.database.delete("receita", {propriedadeId_FK : Propriedade.getId()});
 		}
 		$location.path('/');

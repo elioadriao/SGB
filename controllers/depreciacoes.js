@@ -21,10 +21,10 @@ app.controller("depreciacoes", function($scope, $location, Propriedade){
 		});
 
 		if(res){
-			console.log("Carregou Inventario..");
+			console.log("Inventario[OK]");
 			$scope.initDepreciacoes();
 		}else{
-			console.log("Nao Carregou Inventario..");
+			console.log("Inventario[ERRO]");
 			$location.path("/inventario");
 		}
 	}
@@ -46,10 +46,10 @@ app.controller("depreciacoes", function($scope, $location, Propriedade){
 		});
 
 		if(res){
-			console.log("Carregou Depreciacoes..");
+			console.log("Depreciacoes[OK]");
 			$scope.tratarDepreciacoes();
 		}else{
-			console.log("Nao Carregou Depreciacoes..");
+			console.log("Depreciacoes[ERRO]");
 			$scope.createDepreciacoes();
 			//$('#depreciacoesModal').modal('show');
 		}
@@ -82,6 +82,8 @@ app.controller("depreciacoes", function($scope, $location, Propriedade){
 	}
 
 	$scope.createDepreciacoes = function(){
+		$('#infoModal').modal('show');
+
 		for(i in INVENTARIO_BD){
 			$scope.form = {}
 			$scope.form.id;
@@ -97,7 +99,6 @@ app.controller("depreciacoes", function($scope, $location, Propriedade){
 	//Saving
 	$scope.save = function(){
 		$scope.form.propriedadeId_FK = Propriedade.getId();
-		$('#depreciacoesModal').modal('hide');
 
 		var d;
 		for(d in $scope.depreciacoes){
@@ -111,7 +112,6 @@ app.controller("depreciacoes", function($scope, $location, Propriedade){
 		//$location.path('/inventario');*/
 	}
 
-	// Cancel form
 	$scope.new = function(){
 		basel.database.insert("depreciacoes", $scope.form);
 	}
@@ -121,20 +121,9 @@ app.controller("depreciacoes", function($scope, $location, Propriedade){
 		$scope.form = {};
 	}
 
-	//Abrindo para editar
-	$scope.edit = function(data){
-		$scope.form = {}
-		$scope.form.id = data.id;
-		$scope.form.descricao = data.descricao;
-		$scope.form.valor_final = data.valor_final;
-		$scope.form.valor_inicial = data.valor_inicial;
-		ISEDIT = true;
-		$('#depreciacoesModal').modal('show');
-	}
-
 	//Excluindo
 	$scope.delete = function(data){
-		if(confirm("Deseja Resetar Depreciacoes?")){
+		if(confirm("Resetar Depreciacoes?")){
 			basel.database.delete("depreciacoes", {propriedadeId_FK : Propriedade.getId()});
 		}
 		$location.path('/');

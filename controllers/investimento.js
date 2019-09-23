@@ -19,10 +19,10 @@ app.controller("investimento", function($scope, $location, Propriedade){
 		});
 
 		if(res){
-			console.log("Carregou Investimento..");
+			console.log("Investimento[OK]");
 			$scope.tratarInvestimento();
 		}else{
-			console.log("Nao Carregou Investimento..");
+			console.log("Investimento[ERRO]");
 			$scope.createInvestimento();
 		}
 	}
@@ -49,9 +49,18 @@ app.controller("investimento", function($scope, $location, Propriedade){
 
 	/*  */
 	$scope.createInvestimento = function(){
-		var ESPECIFICACAO = ["Herbicida", "Equip. Aplicação Herbicidas", "Mão de obra para roçagem", "Equip. Roçagem",
-			 "Vacas Girolando", "Cocho Sal", "Inseminacao Artificial", "Material para Cercas", "Edificacoes", "Silo",
-			 "Curral/Cancelas/Balancas"];
+		var ESPECIFICACAO = [
+			"Herbicida",
+			"Equip. Aplicação Herbicidas",
+			"Mão de obra para roçagem",
+			"Equip. Roçagem",
+			"Vacas Girolando",
+			"Cocho Sal",
+			"Inseminacao Artificial",
+			"Material para Cercas",
+			"Edificacoes",
+			"Silo",
+			"Curral/Cancelas/Balancas"];
 
 		for(i in ESPECIFICACAO){
 			$scope.form = {};
@@ -71,6 +80,7 @@ app.controller("investimento", function($scope, $location, Propriedade){
 			$scope.new();
 		}
 
+		$('#infoModal').modal('show');
 		$scope.initInvestimento();
 	}
 
@@ -80,7 +90,6 @@ app.controller("investimento", function($scope, $location, Propriedade){
 		var id = $scope.form["id"];
 		delete $scope.form["id"];
 		delete $scope.form.$$hashKey;
-		$('#investimentoModal').modal('hide');
 
 		basel.database.update("investimento", $scope.form, {id: id});
 		//$scope.new();
@@ -103,7 +112,7 @@ app.controller("investimento", function($scope, $location, Propriedade){
 
 	$scope.edit = function(data){
 		$scope.form = data;
-		$('#investimentoModal').modal('show');
+		$('#saveModal').modal('show');
 	}
 
 	//Excluindo

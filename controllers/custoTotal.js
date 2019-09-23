@@ -25,10 +25,10 @@ app.controller("custoTotal", function($scope, $location, Propriedade){
 		});
 
 		if(res){
-			console.log("Carregou Qtd do Rebanho..");
+			console.log("QtdRebanho[OK]");
 			$scope.initCustoVariavel();
 		}else{
-			console.log("Nao Carregou Qtd do Rebanho..");
+			console.log("QtdRebanho[ERRO]");
 			$location.path("/variacaoRebanho");
 		}
 	}
@@ -48,10 +48,10 @@ app.controller("custoTotal", function($scope, $location, Propriedade){
 		});
 
 		if(res){
-			console.log("Carregou Custo Variavel..");
+			console.log("CustoVariavel[OK]");
 			$scope.initCustoTotal();
 		}else{
-			console.log("Nao Carregou Custo Variavel..");
+			console.log("CustoVariavel[ERRO]");
 			$location.path("/custoVariavel");
 		}
 	}
@@ -71,10 +71,10 @@ app.controller("custoTotal", function($scope, $location, Propriedade){
 		});
 
 		if(res){
-			console.log("Carregou Custo Total..");
+			console.log("CustoTotal[OK]");
 			$scope.tratarCustoTotal();
 		}else{
-			console.log("Nao Carregou Custo Total..");
+			console.log("CustoTotal[ERRO]");
 			$location.path("/");
 		}
 	}
@@ -141,7 +141,7 @@ app.controller("custoTotal", function($scope, $location, Propriedade){
 
 	//Excluindo
 	$scope.delete = function(data){
-		if(confirm("Deseja Resetar Custo Total?")){
+		if(confirm("Resetar Custo Total?")){
 			basel.database.delete("custo_total", {propriedadeId_FK : Propriedade.getId()});
 		}
 		$location.path('/');

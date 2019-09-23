@@ -1,16 +1,19 @@
 "use strict";
 app.controller("variacaoRebanho", function($scope, $location, $window, Propriedade){
 
-	var VARIACAO_REBANHO_PESO_BD = [];
-	var VARIACAO_REBANHO_QTD_BD = [];
-	var VARIACAO_REBANHO_AREA_BD = [];
-	var TOTAL_CABECAS = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
-	var PESO_MEDIO_MES = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
-	var ESTOQUE_MES = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
-	var DENSIDADE_MES = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
-	var LOTACAO_MES = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
-	var DESC_ANIMAL = ["Matrizes", "Novilhos[+14@]", "Novilhos[12@-14@]", "Novilhos[1@-12@]",
-					 "Novilhas[1@-12@]", "Bezerros", "Bezerras", "Outros", "Equideos"];
+	var PESO_BD = [];
+	var QTD_BD = [];
+	var AREA_BD = [];
+	var DESC_ANIMAL = [
+		"Matrizes",
+		"Novilhos[+14]@",
+		"Novilhos[12-14]@",
+		"Novilhos[1-12]@",
+		"Novilhas[1-12]@",
+		"Bezerros",
+		"Bezerras",
+		"Outros",
+		"Equideos"];
 
 	$scope.initRebanhoPeso = function(){
 		var SQL = "SELECT * FROM variacao_rebanho_peso WHERE propriedadeId_FK="+Propriedade.getId();
@@ -18,7 +21,7 @@ app.controller("variacaoRebanho", function($scope, $location, $window, Proprieda
 
 		basel.database.runAsync(SQL, function(data){
 			if(data[0] != null){
-				VARIACAO_REBANHO_PESO_BD = data;
+				PESO_BD = data;
 				res = true;
 			}else{
 				res = false;
@@ -26,10 +29,10 @@ app.controller("variacaoRebanho", function($scope, $location, $window, Proprieda
 		});
 
 		if(res){
-			console.log("Carregou Peso do Rebanho..");
+			console.log("PesoRebanho[OK]");
 			$scope.initRebanhoQtd();
 		}else{
-			console.log("Nao Carregou Peso do Rebanho..");
+			console.log("PesoRebanho[ERRO]");
 			$scope.createRebanhoPeso();
 		}
 	}
@@ -40,7 +43,7 @@ app.controller("variacaoRebanho", function($scope, $location, $window, Proprieda
 
 		basel.database.runAsync(SQL, function(data){
 			if(data[0] != null){
-				VARIACAO_REBANHO_QTD_BD = data;
+				QTD_BD = data;
 				res = true;
 			}else{
 				res = false;
@@ -48,10 +51,10 @@ app.controller("variacaoRebanho", function($scope, $location, $window, Proprieda
 		});
 
 		if(res){
-			console.log("Carregou Qtd do Rebanho..");
+			console.log("QtdRebanho[OK]");
 			$scope.initRebanhoArea();
 		}else{
-			console.log("Nao Carregou Qtd do Rebanho..");
+			console.log("QtdRebanho[ERRO]");
 			$scope.createRebanhoQtd();
 		}
 	}
@@ -62,7 +65,7 @@ app.controller("variacaoRebanho", function($scope, $location, $window, Proprieda
 
 		basel.database.runAsync(SQL, function(data){
 			if(data[0] != null){
-				VARIACAO_REBANHO_AREA_BD = data[0];
+				AREA_BD = data[0];
 				res = true;
 			}else{
 				res = false;
@@ -70,51 +73,57 @@ app.controller("variacaoRebanho", function($scope, $location, $window, Proprieda
 		});
 
 		if(res){
-			console.log("Carregou Rebanho..");
+			console.log("AreaRebanho[OK]");
 			$scope.tratarRebanho();
 		}else{
-			console.log("Nao Carregou Rebanho..");
+			console.log("AreaRebanho[ERRO]");
 			$scope.createRebanhoArea();
 		}
 	}
 
 	$scope.tratarRebanho = function(){
-		for(i in VARIACAO_REBANHO_PESO_BD){
-			TOTAL_CABECAS[0] += VARIACAO_REBANHO_QTD_BD[i].jan;
-			PESO_MEDIO_MES[0] += VARIACAO_REBANHO_QTD_BD[i].jan * VARIACAO_REBANHO_PESO_BD[i].jan;
+		var TOTAL_CABECAS = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+		var PESO_MEDIO_MES = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+		var ESTOQUE_MES = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+		var DENSIDADE_MES = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+		var LOTACAO_MES = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
 
-			TOTAL_CABECAS[1] += VARIACAO_REBANHO_QTD_BD[i].fev;
-			PESO_MEDIO_MES[1] += VARIACAO_REBANHO_QTD_BD[i].fev * VARIACAO_REBANHO_PESO_BD[i].fev;
+		for(i in PESO_BD){
+			TOTAL_CABECAS[0] += QTD_BD[i].jan;
+			PESO_MEDIO_MES[0] += QTD_BD[i].jan * PESO_BD[i].jan;
 
-			TOTAL_CABECAS[2] += VARIACAO_REBANHO_QTD_BD[i].mar;
-			PESO_MEDIO_MES[2] += VARIACAO_REBANHO_QTD_BD[i].mar * VARIACAO_REBANHO_PESO_BD[i].mar;
+			TOTAL_CABECAS[1] += QTD_BD[i].fev;
+			PESO_MEDIO_MES[1] += QTD_BD[i].fev * PESO_BD[i].fev;
 
-			TOTAL_CABECAS[3] += VARIACAO_REBANHO_QTD_BD[i].abr;
-			PESO_MEDIO_MES[3] += VARIACAO_REBANHO_QTD_BD[i].abr * VARIACAO_REBANHO_PESO_BD[i].abr;
+			TOTAL_CABECAS[2] += QTD_BD[i].mar;
+			PESO_MEDIO_MES[2] += QTD_BD[i].mar * PESO_BD[i].mar;
 
-			TOTAL_CABECAS[4] += VARIACAO_REBANHO_QTD_BD[i].mai;
-			PESO_MEDIO_MES[4] += VARIACAO_REBANHO_QTD_BD[i].mai * VARIACAO_REBANHO_PESO_BD[i].mai;
+			TOTAL_CABECAS[3] += QTD_BD[i].abr;
+			PESO_MEDIO_MES[3] += QTD_BD[i].abr * PESO_BD[i].abr;
 
-			TOTAL_CABECAS[5] += VARIACAO_REBANHO_QTD_BD[i].jun;
-			PESO_MEDIO_MES[5] += VARIACAO_REBANHO_QTD_BD[i].jun * VARIACAO_REBANHO_PESO_BD[i].jun;
+			TOTAL_CABECAS[4] += QTD_BD[i].mai;
+			PESO_MEDIO_MES[4] += QTD_BD[i].mai * PESO_BD[i].mai;
 
-			TOTAL_CABECAS[6] += VARIACAO_REBANHO_QTD_BD[i].jul;
-			PESO_MEDIO_MES[6] += VARIACAO_REBANHO_QTD_BD[i].jul * VARIACAO_REBANHO_PESO_BD[i].jul;
+			TOTAL_CABECAS[5] += QTD_BD[i].jun;
+			PESO_MEDIO_MES[5] += QTD_BD[i].jun * PESO_BD[i].jun;
 
-			TOTAL_CABECAS[7] += VARIACAO_REBANHO_QTD_BD[i].ago;
-			PESO_MEDIO_MES[7] += VARIACAO_REBANHO_QTD_BD[i].ago * VARIACAO_REBANHO_PESO_BD[i].ago;
+			TOTAL_CABECAS[6] += QTD_BD[i].jul;
+			PESO_MEDIO_MES[6] += QTD_BD[i].jul * PESO_BD[i].jul;
 
-			TOTAL_CABECAS[8] += VARIACAO_REBANHO_QTD_BD[i].sem;
-			PESO_MEDIO_MES[8] += VARIACAO_REBANHO_QTD_BD[i].sem * VARIACAO_REBANHO_PESO_BD[i].sem;
+			TOTAL_CABECAS[7] += QTD_BD[i].ago;
+			PESO_MEDIO_MES[7] += QTD_BD[i].ago * PESO_BD[i].ago;
 
-			TOTAL_CABECAS[9] += VARIACAO_REBANHO_QTD_BD[i].out;
-			PESO_MEDIO_MES[9] += VARIACAO_REBANHO_QTD_BD[i].out * VARIACAO_REBANHO_PESO_BD[i].out;
+			TOTAL_CABECAS[8] += QTD_BD[i].sem;
+			PESO_MEDIO_MES[8] += QTD_BD[i].sem * PESO_BD[i].sem;
 
-			TOTAL_CABECAS[10] += VARIACAO_REBANHO_QTD_BD[i].nov;
-			PESO_MEDIO_MES[10] += VARIACAO_REBANHO_QTD_BD[i].nov * VARIACAO_REBANHO_PESO_BD[i].nov;
+			TOTAL_CABECAS[9] += QTD_BD[i].out;
+			PESO_MEDIO_MES[9] += QTD_BD[i].out * PESO_BD[i].out;
 
-			TOTAL_CABECAS[11] += VARIACAO_REBANHO_QTD_BD[i].dez;
-			PESO_MEDIO_MES[11] += VARIACAO_REBANHO_QTD_BD[i].dez * VARIACAO_REBANHO_PESO_BD[i].dez;
+			TOTAL_CABECAS[10] += QTD_BD[i].nov;
+			PESO_MEDIO_MES[10] += QTD_BD[i].nov * PESO_BD[i].nov;
+
+			TOTAL_CABECAS[11] += QTD_BD[i].dez;
+			PESO_MEDIO_MES[11] += QTD_BD[i].dez * PESO_BD[i].dez;
 		}
 
 		for(i=0; i<12; i++){
@@ -129,14 +138,14 @@ app.controller("variacaoRebanho", function($scope, $location, $window, Proprieda
 		$scope.estoque_mes = ESTOQUE_MES;
 		$scope.densidade_mes = DENSIDADE_MES;
 		$scope.lotacao_mes = LOTACAO_MES;
-		$scope.area_util_mes = VARIACAO_REBANHO_AREA_BD;
-		$scope.variacao_rebanho_peso = VARIACAO_REBANHO_PESO_BD;
-		$scope.variacao_rebanho_qtd = VARIACAO_REBANHO_QTD_BD;
+		$scope.area_util_mes = AREA_BD;
+		$scope.variacao_rebanho_peso = PESO_BD;
+		$scope.variacao_rebanho_qtd = QTD_BD;
 
-		$scope.repeatData = VARIACAO_REBANHO_QTD_BD.map(function(value, index) {
+		$scope.repeatData = QTD_BD.map(function(value, index) {
 		    return {
-		        qtd: value,
-		        peso: VARIACAO_REBANHO_PESO_BD[index]
+	        qtd: value,
+	        peso: PESO_BD[index]
 		    }
 		});
 	}
@@ -191,20 +200,21 @@ app.controller("variacaoRebanho", function($scope, $location, $window, Proprieda
 	$scope.createRebanhoArea = function(){
 		$scope.form = {};
 		$scope.form.propriedadeId_FK = Propriedade.getId();
-		$scope.form.jan = 0;
-		$scope.form.fev = 0;
-		$scope.form.mar = 0;
-		$scope.form.abr = 0;
-		$scope.form.mai = 0;
-		$scope.form.jun = 0;
-		$scope.form.jul = 0;
-		$scope.form.ago = 0;
-		$scope.form.sem = 0;
-		$scope.form.out = 0;
-		$scope.form.nov = 0;
-		$scope.form.dez = 0;
+		$scope.form.jan = 1;
+		$scope.form.fev = 1;
+		$scope.form.mar = 1;
+		$scope.form.abr = 1;
+		$scope.form.mai = 1;
+		$scope.form.jun = 1;
+		$scope.form.jul = 1;
+		$scope.form.ago = 1;
+		$scope.form.sem = 1;
+		$scope.form.out = 1;
+		$scope.form.nov = 1;
+		$scope.form.dez = 1;
 		$scope.newArea();
 
+		$('#infoModal').modal('show');
 		$scope.initRebanhoArea();
 	}
 
@@ -212,29 +222,29 @@ app.controller("variacaoRebanho", function($scope, $location, $window, Proprieda
 	$scope.getArea = function(index){
 		switch(index){
 			case 0:
-				return VARIACAO_REBANHO_AREA_BD.jan;
+				return AREA_BD.jan;
 			case 1:
-				return VARIACAO_REBANHO_AREA_BD.fev;
+				return AREA_BD.fev;
 			case 2:
-				return VARIACAO_REBANHO_AREA_BD.mar;
+				return AREA_BD.mar;
 			case 3:
-				return VARIACAO_REBANHO_AREA_BD.abr;
+				return AREA_BD.abr;
 			case 4:
-				return VARIACAO_REBANHO_AREA_BD.mai;
+				return AREA_BD.mai;
 			case 5:
-				return VARIACAO_REBANHO_AREA_BD.jun;
+				return AREA_BD.jun;
 			case 6:
-				return VARIACAO_REBANHO_AREA_BD.jul;
+				return AREA_BD.jul;
 			case 7:
-				return VARIACAO_REBANHO_AREA_BD.ago;
+				return AREA_BD.ago;
 			case 8:
-				return VARIACAO_REBANHO_AREA_BD.sem;
+				return AREA_BD.sem;
 			case 9:
-				return VARIACAO_REBANHO_AREA_BD.out;
+				return AREA_BD.out;
 			case 10:
-				return VARIACAO_REBANHO_AREA_BD.nov;
+				return AREA_BD.nov;
 			case 11:
-				return VARIACAO_REBANHO_AREA_BD.dez;
+				return AREA_BD.dez;
 			default:
 				return 0;
 		}
@@ -243,7 +253,7 @@ app.controller("variacaoRebanho", function($scope, $location, $window, Proprieda
 	/* Salvando no Banco */
 	$scope.savePeso = function(){
 		var id = $scope.form["id"];
-		$('#variacaoRebanhoPesoModal').modal('hide');
+		$('#pesoModal').modal('hide');
 		delete $scope.form["id"];
 		delete $scope.form.$$hashKey;
 
@@ -254,7 +264,7 @@ app.controller("variacaoRebanho", function($scope, $location, $window, Proprieda
 
 	$scope.saveQtd = function(){
 		var id = $scope.form["id"];
-		$('#variacaoRebanhoQtdModal').modal('hide');
+		$('#qtdModal').modal('hide');
 		delete $scope.form["id"];
 		delete $scope.form.$$hashKey;
 
@@ -265,7 +275,7 @@ app.controller("variacaoRebanho", function($scope, $location, $window, Proprieda
 
 	$scope.saveArea = function(){
 		var id = $scope.form["id"];
-		$('#variacaoRebanhoAreaModal').modal('hide');
+		$('#areaModal').modal('hide');
 		delete $scope.form["id"];
 		delete $scope.form.$$hashKey;
 
@@ -293,17 +303,17 @@ app.controller("variacaoRebanho", function($scope, $location, $window, Proprieda
 	/* */
 	$scope.editPeso = function(data){
 		$scope.form = data;
-		$('#variacaoRebanhoPesoModal').modal('show');
+		$('#pesoModal').modal('show');
 	}
 
 	$scope.editQtd = function(data){
 		$scope.form = data;
-		$('#variacaoRebanhoQtdModal').modal('show');
+		$('#qtdModal').modal('show');
 	}
 
 	$scope.editArea = function(data){
 		$scope.form = data;
-		$('#variacaoRebanhoAreaModal').modal('show');
+		$('#areaModal').modal('show');
 	}
 
 	$scope.cancel = function(){
@@ -311,7 +321,7 @@ app.controller("variacaoRebanho", function($scope, $location, $window, Proprieda
 	}
 
 	$scope.delete = function(data){
-		if(confirm("Deseja Resetar Variacao de Rebanho?")){
+		if(confirm("Resetar Variação de Rebanho?")){
 			basel.database.delete("variacao_rebanho_qtd", {propriedadeId_FK : Propriedade.getId()});
 			basel.database.delete("variacao_rebanho_peso", {propriedadeId_FK : Propriedade.getId()});
 			basel.database.delete("variacao_rebanho_area", {propriedadeId_FK : Propriedade.getId()});

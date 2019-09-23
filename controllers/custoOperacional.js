@@ -25,10 +25,10 @@ app.controller("custoOperacional", function($scope, $location, Propriedade){
 		});
 
 		if(res){
-			console.log("Carregou Qtd do Rebanho..");
+			console.log("QtdRebanho[OK]");
 			$scope.initCustoVariavel();
 		}else{
-			console.log("Nao Carregou Qtd do Rebanho..");
+			console.log("QtdRebanho[ERRO]");
 			$location.path("/variacaoRebanho");
 		}
 	}
@@ -48,11 +48,10 @@ app.controller("custoOperacional", function($scope, $location, Propriedade){
 		});
 
 		if(res){
-			console.log("Carregou Custo Variavel..");
+			console.log("CustoVariavel[OK]");
 			$scope.initCustoOperacional();
 		}else{
-			console.log("Nao Carregou Custo Variavel..");
-			$location.path("/custoVariavel");
+			console.log("CustoVariavel[ERRO]");
 		}
 	}
 
@@ -71,10 +70,10 @@ app.controller("custoOperacional", function($scope, $location, Propriedade){
 		});
 
 		if(res){
-			console.log("Carregou Custo Operacional..");
+			console.log("CustoOperacional[OK]");
 			$scope.tratarCustoOperacional();
 		}else{
-			console.log("Nao Carregou Custo Operacional..");
+			console.log("CustoOperacional[ERRO]");
 			$location.path("/");
 		}
 	}
@@ -141,7 +140,7 @@ app.controller("custoOperacional", function($scope, $location, Propriedade){
 
 	//Excluindo
 	$scope.delete = function(data){
-		if(confirm("Deseja Resetar Custo Operacional?")){
+		if(confirm("Resetar Custo Operacional?")){
 			basel.database.delete("custo_operacional", {propriedadeId_FK : Propriedade.getId()});
 		}
 		$location.path('/');

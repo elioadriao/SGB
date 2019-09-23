@@ -4,37 +4,38 @@
 			<div class="navbar-header">
 				<a class="navbar-brand" href="">Inicio</a>
 			</div>
+			<ul class="nav pager">
+					<li class="navbar-right" role="presentation">
+						<a href="" data-toggle="modal" data-target="#selectModal" ng-click="removeAtual()"><span class="glyphicon glyphicon-cog"></span></a>
+					</li>
+			</ul>
 		</div>
 	</nav>
 
 	<div class="container" ng-init="initInicio()">
     <div class="row">
-      <div class="col-xs-12 col-sm-12 col-md-12">
-        <div class="jumbotron">
-          <div class="container-fluid">
-            <img src="assets/logos/logo.png" class="img-responsive center-block" />
-          </div>
-          <hr>
-          <div class="container">
-            <table class="table table-sm table-borderless">
-              <thead class="thead-inverse">
-                <th>Propriedade</th>
-								<th>Proprietário</th>
-                <th>Municipio-UF</th>
-                <th>Área</th>
-                <th>Reserva</th>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>{{atual.nomeacao}}</td>
-									<td>{{atual.proprietario}}</td>
-                  <td>{{atual.municipio}}-{{atual.uf}}</td>
-                  <td>{{atual.area}}</td>
-                  <td>{{atual.reserva}}</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
+      <div class="jumbotron">
+        <div class="container-fluid">
+          <img src="assets/logos/logo.png" class="img-responsive center-block" />
+        </div>
+        <hr>
+        <div class="container">
+          <table class="table table-sm table-borderless">
+            <thead class="thead-inverse">
+              <th>Propriedade</th>
+							<th>Proprietário</th>
+              <th>Municipio / UF</th>
+              <th>Área / Reserva</th>
+            </thead>
+            <tbody>
+              <tr>
+                <td>{{atual.nomeacao}}</td>
+								<td>{{atual.proprietario}}</td>
+                <td>{{atual.municipio}} / {{atual.uf}}</td>
+                <td>{{atual.area}} / {{atual.reserva}}</td>
+              </tr>
+            </tbody>
+          </table>
         </div>
       </div>
     </div>
@@ -79,7 +80,7 @@
               <button class="btn btn-success" ng-click="new()"><span class="glyphicon glyphicon-ok"></button>
             </div>
             <div class="btn-group" role="group">
-              <button id="cancelBtn" class="btn btn-default" ng-click="cancel()" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></button>
+              <button id="cancelBtn" class="btn btn-default" ng-click="cancel()" data-dismiss="modal" data-toggle="modal" data-target="#selectModal"><span class="glyphicon glyphicon-remove"></button>
             </div>
           </div>
 				</div>
@@ -105,7 +106,7 @@
 	              <label>Nome do Proprietário</label><input type="text" class="form-control" ng-model="form.proprietario">
 	            </div>
 							<div class="form-group">
-	              <label>Unidade Federativa </label><select ng-model="form.uf" ng-options="x for (x, y) in uf"></select>
+	              <label>Unidade Federativa</label> <select ng-model="form.uf" ng-options="x for (x, y) in uf"></select>
 	            </div>
 							<div class="form-group">
 	              <label>Municipio</label><input type="text" class="form-control" ng-model="form.municipio">
@@ -114,7 +115,7 @@
 	              <label>Area</label><input type="text" class="form-control" ng-model="form.area">
 	            </div>
 	            <div class="form-group">
-	              <label>Reserva </label><select ng-model="selectedReserva" ng-options="x for (x, y) in reserva"></select>
+	              <label>Reserva </label> <select ng-model="selectedReserva" ng-options="x for (x, y) in reserva"></select>
 	            </div>
             </form>
           </div>
@@ -124,7 +125,7 @@
                 <button class="btn btn-success" ng-click="save()"><span class="glyphicon glyphicon-ok"></button>
               </div>
               <div class="btn-group" role="group">
-                <button class="btn btn-default" ng-click="cancel()" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></button>
+                <button class="btn btn-default" ng-click="cancel()" data-dismiss="modal" data-toggle="modal" data-target="#selectModal"><span class="glyphicon glyphicon-remove"></button>
               </div>
             </div>
           </div>
@@ -139,19 +140,17 @@
           <h4 class="modal-title text-center" id="myModalLabel">Selecione uma Propriedade</h4>
         </div>
         <div class="modal-body">
-          <table class="table table-striped" ng-init="initInicio()">
+          <table class="table table-striped" ng-init="getPropriedades()">
             <thead class="basel-table-head"><tr>
-              <th>Nome</th>
-              <th>Municipio</th>
-              <th>Area</th>
-              <th>Reserva</th>
+              <th>Nomeação</th>
+              <th>Municipio / UF</th>
+              <th>Área / Reserva Legal</th>
               <th></th>
             </tr></thead>
             <tbody class="basel-table-body"><tr ng-repeat="item in propriedades">
-              <th>{{item.nome}}</th>
-              <td>{{item.municipio}}</td>
-              <td>{{item.area}}</td>
-              <td>{{item.reserva}}</td>
+              <th>{{item.nomeacao}}</th>
+              <td>{{item.municipio}} / {{item.uf}}</td>
+              <td>{{item.area}} / {{item.reserva}}</td>
               <td>
                   <button class="btn btn-success btn-sq-xs" ng-click="setAtual(item)" data-dismiss="modal"><span class="glyphicon glyphicon-ok"></button>
               </td>
@@ -165,7 +164,7 @@
           </table>
         </div>
         <div class="modal-footer">
-            <button type="button" class="btn btn-info btn-block" data-toggle="modal" data-target="#inicioNewModal" ng-click="hideSelect()">Nova Propriedade</button>
+            <button type="button" class="btn btn-info btn-block" data-dismiss="modal" data-toggle="modal" data-target="#newModal">Nova Propriedade</button>
         </div>
       </div>
     </div>

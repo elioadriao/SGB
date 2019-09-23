@@ -6,17 +6,6 @@ app.controller("fluxoCaixa", function($scope, $location, Propriedade){
 	var INVESTIMENTO_BD = [];
 	var CUSTO_FIXO_BD = [];
 	var FLUXO_CAIXA_BD = [];
-	var TOTAL_MES_FIXO = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
-	var TOTAL_MES_RECEITA = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
-	var TOTAL_MES_INVESTIMENTO = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
-	var TOTAL_MES_ADM = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
-	var TOTAL_MES_VARIAVEL = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
-	var TOTAL_MES_EMP_R = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
-	var TOTAL_MES_EMP_P = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
-	var TOTAL_MES_SAIDA = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
-	var TOTAL_MES_ENTRADA = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
-	var TOTAL_MES_FLUXO = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
-	var TOTAL_MES_ACUMULATIVO = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
 
 	/* INICIA A RECEITA */
 	$scope.initReceita = function(){
@@ -33,10 +22,10 @@ app.controller("fluxoCaixa", function($scope, $location, Propriedade){
 		});
 
 		if(res){
-			console.log("Carregou Receita..");
+			console.log("Receita[OK]");
 			$scope.initInvestimento();
 		}else{
-			console.log("Nao Carregou Receita..");
+			console.log("Receita[ERRO]");
 			$location.path("/receita");
 		}
 	}
@@ -57,10 +46,10 @@ app.controller("fluxoCaixa", function($scope, $location, Propriedade){
 		});
 
 		if(res){
-			console.log("Carregou Investimento..");
+			console.log("Investimento[OK]");
 			$scope.initCustoFixo();
 		}else{
-			console.log("Nao Carregou Investimento..");
+			console.log("Investimento[ERRO]");
 			$location.path("/investimento");
 		}
 	}
@@ -80,10 +69,10 @@ app.controller("fluxoCaixa", function($scope, $location, Propriedade){
 		});
 
 		if(res){
-			console.log("Carregou Custo Fixo..");
+			console.log("CustoFixo[OK]");
 			$scope.initCustoTotal();
 		}else{
-			console.log("Nao Carregou Custo Fixo..");
+			console.log("CustoFixo[ERRO]");
 			$location.path("/custoFixo");
 		}
 	}
@@ -103,10 +92,10 @@ app.controller("fluxoCaixa", function($scope, $location, Propriedade){
 		});
 
 		if(res){
-			console.log("Carregou Custo Total..");
+			console.log("CustoTotal[OK]");
 			$scope.initFluxoCaixa();
 		}else{
-			console.log("Nao Carregou Custo Total..");
+			console.log("CustoTotal[ERRO]");
 			$location.path("/");
 		}
 	}
@@ -126,33 +115,29 @@ app.controller("fluxoCaixa", function($scope, $location, Propriedade){
 		});
 
 		if(res){
-			console.log("Carregou Fluxo de Caixa..");
+			console.log("FluxoCaixa[OK]");
 			$scope.tratarFluxoCaixa();
 		}else{
-			console.log("Nao Carregou Fluxo de Caixa..");
+			console.log("FluxoCaixa[ERRO]");
 			$scope.createFluxoCaixa();
 		}
 	}
 
 	/*  */
-	$scope.tratarInvestimento = function(){
-		for(i in INVESTIMENTO_BD){
-			TOTAL_MES_INVESTIMENTO[0] += INVESTIMENTO_BD[i].jan;
-			TOTAL_MES_INVESTIMENTO[1] += INVESTIMENTO_BD[i].fev;
-			TOTAL_MES_INVESTIMENTO[2] += INVESTIMENTO_BD[i].mar;
-			TOTAL_MES_INVESTIMENTO[3] += INVESTIMENTO_BD[i].abr;
-			TOTAL_MES_INVESTIMENTO[4] += INVESTIMENTO_BD[i].mai;
-			TOTAL_MES_INVESTIMENTO[5] += INVESTIMENTO_BD[i].jun;
-			TOTAL_MES_INVESTIMENTO[6] += INVESTIMENTO_BD[i].jul;
-			TOTAL_MES_INVESTIMENTO[7] += INVESTIMENTO_BD[i].ago;
-			TOTAL_MES_INVESTIMENTO[8] += INVESTIMENTO_BD[i].sem;
-			TOTAL_MES_INVESTIMENTO[9] += INVESTIMENTO_BD[i].out;
-			TOTAL_MES_INVESTIMENTO[10] += INVESTIMENTO_BD[i].nov;
-			TOTAL_MES_INVESTIMENTO[11] += INVESTIMENTO_BD[i].dez;
-		}
-	}
+	$scope.tratarFluxoCaixa = function(){
+		var AUX = 0;
+		var TOTAL_MES_FIXO = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+		var TOTAL_MES_RECEITA = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+		var TOTAL_MES_INVESTIMENTO = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+		var TOTAL_MES_ADM = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+		var TOTAL_MES_VARIAVEL = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+		var TOTAL_MES_EMP_R = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+		var TOTAL_MES_EMP_P = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+		var TOTAL_MES_SAIDA = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+		var TOTAL_MES_ENTRADA = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+		var TOTAL_MES_FLUXO = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+		var TOTAL_MES_ACUMULATIVO = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
 
-	$scope.tratarReceita = function(){
 		for(i in RECEITA_BD){
 			TOTAL_MES_RECEITA[0] += RECEITA_BD[i].jan;
 			TOTAL_MES_RECEITA[1] += RECEITA_BD[i].fev;
@@ -167,10 +152,6 @@ app.controller("fluxoCaixa", function($scope, $location, Propriedade){
 			TOTAL_MES_RECEITA[10] += RECEITA_BD[i].nov;
 			TOTAL_MES_RECEITA[11] += RECEITA_BD[i].dez;
 		}
-	}
-
-	$scope.tratarCustoFixo = function(){
-		var aux = 0;
 
 		for(i in CUSTO_FIXO_BD){
 			switch(CUSTO_FIXO_BD[i].descricao){
@@ -185,7 +166,7 @@ app.controller("fluxoCaixa", function($scope, $location, Propriedade){
 				case "Benfeitorias":
 				case "Edificações":
 				case "Pastagem":
-					aux = 1;
+					AUX = 1;
 					break;
 				default:
 					TOTAL_MES_FIXO[0] += CUSTO_FIXO_BD[i].jan;
@@ -202,9 +183,7 @@ app.controller("fluxoCaixa", function($scope, $location, Propriedade){
 					TOTAL_MES_FIXO[11] += CUSTO_FIXO_BD[i].dez;
 			}
 		}
-	}
 
-	$scope.tratarCustoTotal = function(){
 		for(i in CUSTO_TOTAL_BD){
 			switch(CUSTO_TOTAL_BD[i].descricao){
 				case "Variavel" :
@@ -236,13 +215,21 @@ app.controller("fluxoCaixa", function($scope, $location, Propriedade){
 					TOTAL_MES_ADM[11] += CUSTO_TOTAL_BD[i].dez;
 			}
 		}
-	}
 
-	$scope.tratarFluxoCaixa = function(){
-		$scope.tratarReceita();
-		$scope.tratarCustoFixo();
-		$scope.tratarCustoTotal();
-		$scope.tratarInvestimento();
+		for(i in INVESTIMENTO_BD){
+			TOTAL_MES_INVESTIMENTO[0] += INVESTIMENTO_BD[i].jan;
+			TOTAL_MES_INVESTIMENTO[1] += INVESTIMENTO_BD[i].fev;
+			TOTAL_MES_INVESTIMENTO[2] += INVESTIMENTO_BD[i].mar;
+			TOTAL_MES_INVESTIMENTO[3] += INVESTIMENTO_BD[i].abr;
+			TOTAL_MES_INVESTIMENTO[4] += INVESTIMENTO_BD[i].mai;
+			TOTAL_MES_INVESTIMENTO[5] += INVESTIMENTO_BD[i].jun;
+			TOTAL_MES_INVESTIMENTO[6] += INVESTIMENTO_BD[i].jul;
+			TOTAL_MES_INVESTIMENTO[7] += INVESTIMENTO_BD[i].ago;
+			TOTAL_MES_INVESTIMENTO[8] += INVESTIMENTO_BD[i].sem;
+			TOTAL_MES_INVESTIMENTO[9] += INVESTIMENTO_BD[i].out;
+			TOTAL_MES_INVESTIMENTO[10] += INVESTIMENTO_BD[i].nov;
+			TOTAL_MES_INVESTIMENTO[11] += INVESTIMENTO_BD[i].dez;
+		}
 
 		for(i in FLUXO_CAIXA_BD){
 			switch(FLUXO_CAIXA_BD[i].descricao){
@@ -322,6 +309,7 @@ app.controller("fluxoCaixa", function($scope, $location, Propriedade){
 			$scope.new();
 		}
 
+		$('#infoModal').modal('show');
 		$scope.initFluxoCaixa();
 	}
 
@@ -331,12 +319,11 @@ app.controller("fluxoCaixa", function($scope, $location, Propriedade){
 		var id = $scope.form["id"];
 		delete $scope.form["id"];
 		delete $scope.form.$$hashKey;
-		$('#fluxoCaixaModal').modal('hide');
 
 		basel.database.update("fluxo_caixa", $scope.form, {id: id});
 		//$scope.new();
 
-		$scope.initCustoVariavel();
+		$scope.initFluxoCaixa();
 		//$location.path('/inventario');
 	}
 
@@ -365,12 +352,12 @@ app.controller("fluxoCaixa", function($scope, $location, Propriedade){
 			}
 		}
 
-		$('#fluxoCaixaModal').modal('show');
+		$('#saveModal').modal('show');
 	}
 
 	//Excluindo
 	$scope.delete = function(data){
-		if(confirm("Deseja Resetar Fluxo de Caixa?")){
+		if(confirm("Resetar Fluxo de Caixa?")){
 			basel.database.delete("fluxo_caixa", {propriedadeId_FK : Propriedade.getId()});
 		}
 		$location.path('/');

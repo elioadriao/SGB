@@ -24,10 +24,10 @@ app.controller("custoVariavel", function($scope, $location, Propriedade){
 		});
 
 		if(res){
-			console.log("Carregou Qtd do Rebanho..");
+			console.log("QtdRebanho[OK]");
 			$scope.initCustoVariavel();
 		}else{
-			console.log("Nao Carregou Qtd do Rebanho..");
+			console.log("QtdRebanho[ERRO]");
 			$location.path("/variacaoRebanho");
 		}
 	}
@@ -47,10 +47,10 @@ app.controller("custoVariavel", function($scope, $location, Propriedade){
 		});
 
 		if(res){
-			console.log("Carregou Custo Variavel..");
+			console.log("CustoVariavel[OK]");
 			$scope.tratarCustoVariavel();
 		}else{
-			console.log("Nao Carregou Custo Variavel..");
+			console.log("CustoVariavel[ERRO]");
 			$scope.createCustoVariavel();
 		}
 	}
@@ -123,10 +123,29 @@ app.controller("custoVariavel", function($scope, $location, Propriedade){
 
 	/*  */
 	$scope.createCustoVariavel = function(){
-		var ESPECIFICACAO = ["Suplementacao", "Sal mineral", "Carrapaticidas", "Mosca do chifre", "Vermífugo", "Vacina de aftosa",
-			 "Vacina clostridiose", "Outras vacinas", "Outros medicamentos", "Mao de obra", "Materiais", "Curral", "Frete Carretas",
-			 "Casas", "Tratores", "Máquinas", "Combustível", "Celular", "Encargos Bancarios", "Projeto Pecuario", "Energia elétrica",
-			 "Aquisicao de animais"];
+		var ESPECIFICACAO = [
+			"Suplementacao",
+			"Sal mineral",
+			"Carrapaticidas",
+			"Mosca do chifre",
+			"Vermífugo",
+			"Vacina de aftosa",
+			"Vacina clostridiose",
+			"Outras vacinas",
+			"Outros medicamentos",
+			"Mao de obra",
+			"Materiais",
+			"Curral",
+			"Frete Carretas",
+			"Casas",
+			"Tratores",
+			"Máquinas",
+			"Combustível",
+			"Celular",
+			"Encargos Bancarios",
+			"Projeto Pecuario",
+			"Energia elétrica",
+			"Aquisicao de animais"];
 
 		for(i in ESPECIFICACAO){
 			$scope.form = {};
@@ -146,6 +165,7 @@ app.controller("custoVariavel", function($scope, $location, Propriedade){
 			$scope.new();
 		}
 
+		$('#infoModal').modal('show');
 		$scope.initCustoVariavel();
 	}
 
@@ -196,7 +216,6 @@ app.controller("custoVariavel", function($scope, $location, Propriedade){
 		var id = $scope.form["id"];
 		delete $scope.form["id"];
 		delete $scope.form.$$hashKey;
-		$('#custoVariavelModal').modal('hide');
 
 		basel.database.update("custo_variavel", $scope.form, {id: id});
 		//$scope.new();
@@ -219,12 +238,12 @@ app.controller("custoVariavel", function($scope, $location, Propriedade){
 
 	$scope.edit = function(data){
 		$scope.form = data;
-		$('#custoVariavelModal').modal('show');
+		$('#saveModal').modal('show');
 	}
 
 	//Excluindo
 	$scope.delete = function(data){
-		if(confirm("Deseja Resetar Custo Variavel?")){
+		if(confirm("Resetar Custo Variável?")){
 			basel.database.delete("custo_variavel", {propriedadeId_FK : Propriedade.getId()});
 			basel.database.delete("custo_operacional", {propriedadeId_FK : Propriedade.getId()});
 		}

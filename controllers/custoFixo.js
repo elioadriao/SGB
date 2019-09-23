@@ -26,10 +26,10 @@ app.controller("custoFixo", function($scope, $location, Propriedade){
 		});
 
 		if(res){
-			console.log("Carregou Inventario..");
+			console.log("Inventario[OK]");
 			$scope.initDepreciacoes();
 		}else{
-			console.log("Nao Carregou Inventario..");
+			console.log("Inventario[ERRO]");
 			$location.path("/inventario");
 		}
 	}
@@ -51,10 +51,10 @@ app.controller("custoFixo", function($scope, $location, Propriedade){
 		});
 
 		if(res){
-			console.log("Carregou Depreciacoes..");
+			console.log("Depreciacoes[OK]");
 			$scope.initRebanhoQtd();
 		}else{
-			console.log("Nao Carregou Depreciacoes..");
+			console.log("Depreciacoes[ERRO]");
 			$location.path("/depreciacoes");
 		}
 	}
@@ -74,10 +74,10 @@ app.controller("custoFixo", function($scope, $location, Propriedade){
 		});
 
 		if(res){
-			console.log("Carregou Qtd do Rebanho..");
+			console.log("QtdRebanho[OK]");
 			$scope.initCustoFixo();
 		}else{
-			console.log("Nao Carregou Qtd do Rebanho..");
+			console.log("QtdRebanho[ERRO]");
 			$location.path("/variacaoRebanho");
 		}
 	}
@@ -97,10 +97,10 @@ app.controller("custoFixo", function($scope, $location, Propriedade){
 		});
 
 		if(res){
-			console.log("Carregou Custo Fixo..");
+			console.log("CustoFixo[OK]");
 			$scope.tratarCustoFixo();
 		}else{
-			console.log("Nao Carregou Custo Fixo..");
+			console.log("CustoFixo[ERRO]");
 			$scope.createCustoFixo();
 		}
 	}
@@ -173,9 +173,18 @@ app.controller("custoFixo", function($scope, $location, Propriedade){
 	/*  */
 	$scope.createCustoFixo = function(){
 		$scope.tratarDepreciacoes();
-		var ESPECIFICACAO = ["Máquinas e Implementos", "Tratores", "Veículos", "Equipamentos Manuais",
-			 "Reprodutores Machos", "Reprodutores Femeas", "Animais de Trabalho", "Canavial ou Volumosos",
-		 	 "Benfeitorias", "Edificações", "Pastagem"];
+		var ESPECIFICACAO = [
+			"Máquinas e Implementos",
+			"Tratores",
+			"Veículos",
+			"Equipamentos Manuais",
+			"Reprodutores Machos",
+			"Reprodutores Femeas",
+			"Animais de Trabalho",
+			"Canavial ou Volumosos",
+		 	"Benfeitorias",
+			"Edificações",
+			"Pastagem"];
 
 		for(i in ESPECIFICACAO){
 			$scope.form = {};
@@ -197,6 +206,7 @@ app.controller("custoFixo", function($scope, $location, Propriedade){
 			$scope.new();
 		}
 
+		$('#infoModal').modal('show');
 		$scope.initCustoFixo();
 	}
 
@@ -244,7 +254,6 @@ app.controller("custoFixo", function($scope, $location, Propriedade){
 	$scope.save = function(){
 		$scope.form.id;
 		$scope.form.propriedadeId_FK = Propriedade.getId();
-		$('#custoFixoModal').modal('hide');
 
 		$scope.new();
 
@@ -252,8 +261,7 @@ app.controller("custoFixo", function($scope, $location, Propriedade){
 		//$location.path('/inventario');
 	}
 
-	// Cancel form
-	$scope.new = function(){
+	$scope.new = function() {
 		basel.database.insert("custo_fixo", $scope.form);
 	}
 
@@ -262,21 +270,9 @@ app.controller("custoFixo", function($scope, $location, Propriedade){
 		$scope.form = {};
 	}
 
-	/*Abrindo para editar
-	$scope.edit = function(data){
-		$scope.form = {}
-		$scope.form.id = data.id;
-		$scope.form.descricao = data.descricao;
-		$scope.form.valor_final = data.valor_final;
-		$scope.form.valor_inicial = data.valor_inicial;
-		ISEDIT = true;
-		$('#depreciacoesModal').modal('show');
-	}
-	*/
-
 	//Excluindo
 	$scope.delete = function(data){
-		if(confirm("Deseja Resetar Custo Fixo?")){
+		if(confirm("Resetar Custo Fixo?")){
 			basel.database.delete("custo_fixo", {propriedadeId_FK : Propriedade.getId()});
 			basel.database.delete("custo_operacional", {propriedadeId_FK : Propriedade.getId()});
 		}

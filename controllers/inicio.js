@@ -46,18 +46,22 @@ app.controller("inicio", function($scope, $rootScope, $location, $window, Propri
 		$scope.alerta = "";
 
 		if ($scope.atual == null){
-			basel.database.runAsync("SELECT * FROM propriedade", function(data){
-				if(data[0] != null){
-					$scope.propriedades = data;
-					$('#selectModal').modal('show');
-				}else{
-					$scope.alerta = "Para o funcionamento do Sistema é necessário o cadastro de pelo menos uma Propriedade.";
-					$('#selectModal').modal('hide');
-					$('#cancelBtn').hide();
-					$('#newModal').modal('show');
-				}
-			});
+			$scope.getPropriedades();
+			if($scope.propriedades != null){
+				$('#selectModal').modal('show');
+			}else{
+				$scope.alerta = "Para o funcionamento do Sistema é necessário o cadastro de pelo menos uma Propriedade.";
+				$('#selectModal').modal('hide');
+				$('#cancelBtn').hide();
+				$('#newModal').modal('show');
+			}
 		}
+	}
+
+	$scope.getPropriedades = function() {
+		basel.database.runAsync("SELECT * FROM propriedade", function(data){
+			$scope.propriedades = data;
+		});
 	}
 
 	$scope.setAtual = function(propriedade){
@@ -65,8 +69,9 @@ app.controller("inicio", function($scope, $rootScope, $location, $window, Propri
 		$scope.atual = propriedade;
 	}
 
-	$scope.hideSelect = function(){
-		$('#selectModal').modal('hide');
+	$scope.removeAtual = function() {
+		Propriedade.remove();
+		$scope.atual = null;
 	}
 
 	//Salva no Banco
@@ -122,7 +127,7 @@ app.controller("inicio", function($scope, $rootScope, $location, $window, Propri
 			"variacao_rebanho_qtd",
 			"variacao_rebanho_peso"];
 
-		if(confirm("Deseja realmente Deletar Propriedade?")){
+		if(confirm("Deletar Propriedade e suas Respectivas Tabelas?")){
 			for(i in Tables){
 				basel.database.delete(Tables[i], {id: data["id"]});
 			}
@@ -146,8 +151,8 @@ app.controller("inicio", function($scope, $rootScope, $location, $window, Propri
 		return JSON.parse($window.localStorage.getItem("propriedade")).id;
 	};
 
-	service.clearPropriedade = function(){
-		$window.localStorage.removeItem("idPropriedade");
+	service.remove = function(){
+		$window.localStorage.removeItem("propriedade");
 	};
 
 	return service;

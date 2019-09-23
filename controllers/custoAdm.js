@@ -22,16 +22,16 @@ app.controller("custoAdm", function($scope, $location, Propriedade){
 		});
 
 		if(res){
-			console.log("Carregou Qtd do Rebanho..");
-			$scope.initCustoVariavel();
+			console.log("QtdRebanho[OK]");
+			$scope.initCustoAdm();
 		}else{
-			console.log("Nao Carregou Qtd do Rebanho..");
+			console.log("QtdRebanho[ERRO]");
 			$location.path("/variacaoRebanho");
 		}
 	}
 
 	/* INICIA O CUSTO ADM */
-	$scope.initCustoVariavel = function(){
+	$scope.initCustoAdm = function(){
 		var SQL = "SELECT * FROM custo_adm WHERE propriedadeId_FK="+Propriedade.getId();
 		var res = false;
 
@@ -45,10 +45,10 @@ app.controller("custoAdm", function($scope, $location, Propriedade){
 		});
 
 		if(res){
-			console.log("Carregou Custo Adm..");
+			console.log("CustoAdm[OK]");
 			$scope.tratarCustoAdm();
 		}else{
-			console.log("Nao Carregou Custo Adm..");
+			console.log("CustoAdm[ERRO]");
 			$scope.createCustoAdm();
 		}
 	}
@@ -102,8 +102,18 @@ app.controller("custoAdm", function($scope, $location, Propriedade){
 
 	/*  */
 	$scope.createCustoAdm = function(){
-		var ESPECIFICACAO = ["Funcionários administrativos", "Alimentacao/Refeicao", "Escritório", "Telefone", "Telefone fixo", "Contador/Advogado",
-			 "Informacoes", "Seguros veículos", "Moto/Carro", "Despesas de Viagem", "Energia elétrica"];
+		var ESPECIFICACAO = [
+			"Funcionários administrativos",
+			"Alimentacao/Refeicao",
+			"Escritório",
+			"Telefone",
+			"Telefone fixo",
+			"Contador/Advogado",
+			"Informacoes",
+			"Seguros veículos",
+			"Moto/Carro",
+			"Despesas de Viagem",
+			"Energia elétrica"];
 
 		for(i in ESPECIFICACAO){
 			$scope.form = {};
@@ -123,7 +133,8 @@ app.controller("custoAdm", function($scope, $location, Propriedade){
 			$scope.new();
 		}
 
-		$scope.initCustoVariavel();
+		$('#infoModal').modal('show');
+		$scope.initCustoAdm();
 	}
 
 	$scope.insertOperacional = function(){
@@ -173,12 +184,11 @@ app.controller("custoAdm", function($scope, $location, Propriedade){
 		var id = $scope.form["id"];
 		delete $scope.form["id"];
 		delete $scope.form.$$hashKey;
-		$('#custoAdmModal').modal('hide');
 
 		basel.database.update("custo_adm", $scope.form, {id: id});
 		//$scope.new();
 
-		$scope.initCustoVariavel();
+		$scope.initCustoAdm();
 		//$location.path('/inventario');
 	}
 
@@ -196,12 +206,12 @@ app.controller("custoAdm", function($scope, $location, Propriedade){
 
 	$scope.edit = function(data){
 		$scope.form = data;
-		$('#custoAdmModal').modal('show');
+		$('#saveModal').modal('show');
 	}
 
 	//Excluindo
 	$scope.delete = function(data){
-		if(confirm("Deseja Resetar Custo ADM?")){
+		if(confirm("Resetar Custo ADM?")){
 			basel.database.delete("custo_adm", {propriedadeId_FK : Propriedade.getId()});
 			basel.database.delete("custo_operacional", {propriedadeId_FK : Propriedade.getId()});
 		}

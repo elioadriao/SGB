@@ -2,7 +2,7 @@
 	<nav class="navbar navbar-default navbar-fixed-top" style="margin-left: 250px" id="infobar">
 		<div class="container-fluid">
 			<div class="navbar-header">
-				<a class="navbar-brand" href="">Depreciacões <small>Gerais</small></a>
+				<a class="navbar-brand" href="">Depreciações <small>Gerais</small></a>
 			</div>
 			<ul class="nav pager">
 					<li class="navbar-right" role="presentation">
@@ -10,7 +10,7 @@
 					</li>
 
 					<li class="navbar-right" role="presentation">
-						<a href="" data-toggle="modal" data-target="#depreciacoesModal"><span class="glyphicon glyphicon-paperclip"></span></a>
+						<a href="" data-toggle="modal" data-target="#saveModal"><span class="glyphicon glyphicon-pencil"></span></a>
 					</li>
 			</ul>
 		</div>
@@ -19,9 +19,8 @@
 	<div class="row">
 		<table class="table table-responsive table-hover table-sm table-bordered" ng-init="initInventario()">
 			<thead class="thead-inverse">
-				<th>Bens de Capital</th>
-				<th>Valor Inicial(R$)</th>
-				<th>Valor de Sucata</th>
+				<th>Descrição</th>
+				<th>Valor de Mercado / Sucata</th>
 				<th>Capital Medio</th>
 				<th>Depreciação Anual</th>
 				<th>Remuneracão de Capital</th>
@@ -30,9 +29,8 @@
 			</thead>
 			<tbody class="basel-table-body">
 			<tr ng-repeat="item in inventario">
-				<td>{{item.descricao}}</td>
-				<td>{{item.valor_inicial | number:2}}</td>
-				<td>{{item.valor_final | number:2}}</td>
+				<th>{{item.descricao}}</th>
+				<td>{{item.valor_inicial | number:2}} / {{item.valor_final | number:2}}</td>
 				<td>{{item.medio | number:2}}</td>
 				<td>{{item.anual | number:2}}</td>
 				<td>{{item.remuneracao | number:2}}</td>
@@ -43,11 +41,11 @@
 		</table>
 	</div>
 
-	<div class="modal fade" id="depreciacoesModal" role="dialog">
+	<div class="modal fade" id="saveModal" role="dialog">
 		<div class="modal-dialog" role="document">
 			<div class="modal-content">
 				<div class="modal-header">
-					<h4 class="modal-title" id="myModalLabel">Cadastro de Taxas de Amortização</h4>
+					<h4 class="modal-title" id="myModalLabel">Taxas de Amortização</h4>
 				</div>
 
 				<div class="modal-body">
@@ -56,7 +54,7 @@
 							<input type="hidden" class="form-control" ng-model="form.id">
 						</div>
 						<div class="form-group col-md-12">
-							<label>Juros de Remuneração</label><input type="text" class="form-control" ng-model="form.juros">
+							<label>Juros de Remuneração</label><input type="number" class="form-control" ng-model="form.juros">
 						</div>
 
 						<div ng-repeat="d in depreciacoes">
@@ -66,7 +64,7 @@
 							</div>
 							<div class="form-group col-md-6">
 								<label>Amortização</label>
-								<input type="text" class="form-control" ng-value="d.amortizacao" ng-model="d.amortizacao">
+								<input type="number" class="form-control" ng-value="d.amortizacao" ng-model="d.amortizacao">
 							</div>
 						</div>
 					</form>
@@ -74,13 +72,32 @@
 
 				<div class="modal-footer">
 					<div class="btn-group btn-group-justified" role="group">
-                        <div class="btn-group" role="group">
-                            <button class="btn btn-success" ng-click="save()"><span class="glyphicon glyphicon-ok"></button>
-                        </div>
-                        <div class="btn-group" role="group">
-                            <button class="btn btn-default" ng-click="cancel()" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></button>
-                        </div>
-                    </div>
+              <div class="btn-group" role="group">
+                <button class="btn btn-success" ng-click="save()" data-dismiss="modal"><span class="glyphicon glyphicon-ok"></button>
+              </div>
+              <div class="btn-group" role="group">
+                <button class="btn btn-default" ng-click="cancel()" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></button>
+              </div>
+          </div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="modal fade" id="infoModal" role="dialog">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+					<h4 class="modal-title text-center text-info">Dados Não Encontrados</h4>
+				</div>
+
+				<div class="modal-body">
+					<h4>
+						Foram gerados dados padrões para as Taxas de Amortização.<hr>
+						Para Editar use: <span class="glyphicon glyphicon-pencil"></span><hr>
+						Para Excluir use: <span class="glyphicon glyphicon-trash"></span>
+					</h4>
 				</div>
 			</div>
 		</div>

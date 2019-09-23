@@ -3,7 +3,6 @@ app.controller("inventario", function($scope, $location, Propriedade){
 
 	var INVENTARIO_BANCO = [];
 	var CAPITAL_TOTAL = 0;
-	var ISEDIT = false;
 
 	/* INICIA O INVENTARIO */
 	$scope.initInventario = function(){
@@ -23,15 +22,17 @@ app.controller("inventario", function($scope, $location, Propriedade){
 
 
 		if(res){
-			console.log("Carregou Inventario..");
+			console.log("Inventario[OK]");
 			$scope.tratarInventario();
 		}else{
-			console.log("Nao Carregou Inventario..");
+			console.log("Inventario[ERRO]");
 			$scope.createInventario();
 		}
 	}
 
 	$scope.createInventario = function(){
+		$('#infoModal').modal('show');
+		
 		var lista = ["Insumos", "Maquinas e Implementos", "Tratores", "Veiculos", "Equipamentos Manuais",
 		 "Reprodutores Machos", "Reprodutores Femeas", "Animais de Engorda", "Animais de Trabalho",
 		 "Canavial ou Volumosos", "Benfeitorias", "Cercas", "Edificacoes", "Pastagem", "Semem", "Terra"];
@@ -74,22 +75,14 @@ app.controller("inventario", function($scope, $location, Propriedade){
 	//Saving
 	$scope.save = function(){
 		$scope.form.propriedadeId_FK = Propriedade.getId();
-		$('#inventarioModal').modal('hide');
+		var id = $scope.form["id"];
+		delete $scope.form["id"];
+		delete $scope.form.$$hashKey; //Apaga elemento $$hashKey do objeto
+		basel.database.update("inventario", $scope.form, {id: id}); //entidade, dados, where
 
-		if(ISEDIT){
-			var id = $scope.form["id"];
-			delete $scope.form["id"];
-			delete $scope.form.$$hashKey; //Apaga elemento $$hashKey do objeto
-			basel.database.update("inventario", $scope.form, {id: id}); //entidade, dados, where
-
-			$scope.initInventario();
-			ISEDIT = false;
-		}else{
-			$scope.new();
-		}
+		$scope.initInventario();
 	}
 
-	// Cancel form
 	$scope.new = function(){
 		basel.database.insert("inventario", $scope.form);
 	}
@@ -100,19 +93,17 @@ app.controller("inventario", function($scope, $location, Propriedade){
 	}
 
 	//Abrindo para editar
-	$scope.edit = function(data){
+	$scope.edit = function(item){
 		$scope.form = {}
-		$scope.form.id = data.id;
-		$scope.form.descricao = data.descricao;
-		$scope.form.valor_final = data.valor_final;
-		$scope.form.valor_inicial = data.valor_inicial;
-		ISEDIT = true;
-		$('#inventarioModal').modal('show');
+		$scope.form.id = item.id;
+		$scope.form.descricao = item.descricao;
+		$scope.form.valor_final = item.valor_final;
+		$scope.form.valor_inicial = item.valor_inicial;
 	}
 
 	//Excluindo
 	$scope.delete = function(){
-		if(confirm("Deseja Resetar Inventario?")){
+		if(confirm("Resetar Inventario?")){
 			basel.database.delete("inventario", {propriedadeId_FK : Propriedade.getId()});
 		}
 		$location.path('/');

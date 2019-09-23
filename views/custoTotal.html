@@ -15,7 +15,7 @@
 	<div class="row">
 		<table class="table table-responsive table-hover table-sm table-bordered" ng-init="initRebanhoQtd()">
 			<thead class="thead-inverse">
-				<th>Descrição</th>
+				<th class="text-center">Descrição</th>
 				<th>Janeiro</th>
 				<th>Fevereiro</th>
 				<th>Março</th>
@@ -31,7 +31,7 @@
 			</thead>
 			<tbody class="basel-table-body">
 			<tr ng-repeat="item in custo_total">
-				<td>{{item.descricao}}</td>
+				<th>{{item.descricao}}</th>
 				<td>{{item.jan | number:2}}</td>
 				<td>{{item.fev | number:2}}</td>
 				<td>{{item.mar | number:2}}</td>

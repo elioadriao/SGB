@@ -4,29 +4,24 @@ app.controller("index", function($scope, $rootScope, $location){
 	$scope.menus = basel.menu();
 
 	var PAGES = {
-		"/inventario" : 0,
-		"/depreciacoes" : 1,
-		"/variacaoRebanho" : 2,
-		"/custoFixo" : 3,
-		"/custoVariavel" : 4,
-		"/custoAdm" : 5,
-		"/investimento" : 6,
-		"/custoOperacional" : 7,
-		"/custoOportunidade" : 8,
-		"/custoTotal" : 9,
-		"/receita" : 10,
-		"/balanco" : 11,
-		"/analise" : 12,
-		"/fluxoCaixa" : 13,
-		"/equilibrio" : 14
+		"/" : 0,
+		"/inventario" : 1,
+		"/depreciacoes" : 2,
+		"/variacaoRebanho" : 3,
+		"/custoFixo" : 4,
+		"/custoVariavel" : 5,
+		"/custoAdm" : 6,
+		"/investimento" : 7,
+		"/custoOperacional" : 8,
+		"/custoOportunidade" : 9,
+		"/custoTotal" : 10,
+		"/receita" : 11,
+		"/balanco" : 12,
+		"/analise" : 13,
+		"/fluxoCaixa" : 14,
+		"/equilibrio" : 15
 		};
-	var ATUAL = { key : -1, value : ""};
-
-	$scope.logoff = function (){
-		AuthenticationService.ClearCredentials();
-		localStorage.clear();
-		$location.path('/login');
-	}
+	var ATUAL = { key : 0, value : "/"};
 
 	$scope.menu = function (){
 		$('#menu').modal('show');
@@ -36,7 +31,7 @@ app.controller("index", function($scope, $rootScope, $location){
 		ATUAL.key = PAGES[location];
 		ATUAL.value = location;
 
-		console.log("Redir.. "+ATUAL.value);
+		console.log("Goto["+ATUAL.value+"]");
 		$('#menu').modal('hide');
 		$location.path(location);
 	}

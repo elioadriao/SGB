@@ -36,10 +36,10 @@ app.controller("custoOportunidade", function($scope, $location, Propriedade){
 		});
 
 		if(res){
-			console.log("Carregou Peso do Rebanho..");
+			console.log("PesoRebanho[OK]");
 			$scope.initRebanhoQtd();
 		}else{
-			console.log("Nao Carregou Peso do Rebanho..");
+			console.log("PesoRebanho[ERRO]");
 			$location.path("/variacaoRebanho");
 		}
 	}
@@ -58,10 +58,10 @@ app.controller("custoOportunidade", function($scope, $location, Propriedade){
 		});
 
 		if(res){
-			console.log("Carregou Qtd do Rebanho..");
+			console.log("QtdRebanho[OK]");
 			$scope.initRebanhoArea();
 		}else{
-			console.log("Nao Carregou Qtd do Rebanho..");
+			console.log("QtdRebanho[ERRO]");
 			$location.path("/variacaoRebanho");
 		}
 	}
@@ -80,10 +80,10 @@ app.controller("custoOportunidade", function($scope, $location, Propriedade){
 		});
 
 		if(res){
-			console.log("Carregou Rebanho..");
+			console.log("AreaRebanho[OK]");
 			$scope.initInventario();
 		}else{
-			console.log("Nao Carregou Rebanho..");
+			console.log("AreaRebanho[ERRO]");
 			$location.path("/variacaoRebanho");
 		}
 	}
@@ -106,10 +106,10 @@ app.controller("custoOportunidade", function($scope, $location, Propriedade){
 
 
 		if(res){
-			console.log("Carregou Inventario..");
+			console.log("Inventario[OK]");
 			$scope.initCustoOperacional();
 		}else{
-			console.log("Nao Carregou Inventario..");
+			console.log("Inventario[ERRO]");
 			$location.path("/inventario");
 		}
 	}
@@ -129,10 +129,10 @@ app.controller("custoOportunidade", function($scope, $location, Propriedade){
 		});
 
 		if(res){
-			console.log("Carregou Custo Operacional..");
+			console.log("CustoOperacional[OK]");
 			$scope.initCustoFixo();
 		}else{
-			console.log("Nao Carregou Custo Operacional..");
+			console.log("CustoOperacional[ERRO]");
 			$location.path("/");
 		}
 	}
@@ -152,10 +152,10 @@ app.controller("custoOportunidade", function($scope, $location, Propriedade){
 		});
 
 		if(res){
-			console.log("Carregou Custo Fixo..");
+			console.log("CustoFixo[OK]");
 			$scope.initCustoOportunidade();
 		}else{
-			console.log("Nao Carregou Custo Fixo..");
+			console.log("CustoFixo[ERRO]");
 			$location.path("/custoFixo");
 		}
 	}
@@ -174,10 +174,10 @@ app.controller("custoOportunidade", function($scope, $location, Propriedade){
 		});
 
 		if(res){
-			console.log("Carregou CustoOportunidade..");
+			console.log("CustoOportunidade[OK]");
 			$scope.tratarCustoOportunidade();
 		}else{
-			console.log("Nao Carregou CustoOportunidade..");
+			console.log("CustoOportunidade[ERRO]");
 			$scope.createCustoOportunidade();
 		}
 	}
@@ -370,6 +370,7 @@ app.controller("custoOportunidade", function($scope, $location, Propriedade){
 		$scope.form.imposto = 1;
 		$scope.form.inflacao = 1;
 
+		$('#infoModal').modal('show');
 		$scope.new();
 		$scope.initCustoOportunidade();
 	}
@@ -470,7 +471,6 @@ app.controller("custoOportunidade", function($scope, $location, Propriedade){
 		//var id = $scope.form["id"];
 		//delete $scope.form["id"];
 		//delete $scope.form.$$hashKey;
-		$('#custoOportunidadeModal').modal('hide');
 
 		basel.database.update("custo_oportunidade", $scope.form, {propriedadeId_FK: Propriedade.getId()});
 		//$scope.new();
@@ -489,14 +489,9 @@ app.controller("custoOportunidade", function($scope, $location, Propriedade){
 		$scope.form = {};
 	}
 
-	$scope.edit = function(data){
-		$scope.form = data;
-		$('#custoOportunidadeModal').modal('show');
-	}
-
 	//Excluindo
 	$scope.delete = function(data){
-		if(confirm("Deseja Resetar Custo Oportunidade?")){
+		if(confirm("Resetar Custo Oportunidade?")){
 			basel.database.delete("custo_oportunidade", {propriedadeId_FK : Propriedade.getId()});
 		}
 		$location.path('/');

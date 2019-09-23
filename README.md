@@ -8,7 +8,7 @@ Software de intuito Educacional, implementado a partir da união dos conheciment
 ### Instalação
 >npm install
 
-## Execução de Teste
+### Execução de Teste
 >npm start
 
 ### Empacotamento do Executável

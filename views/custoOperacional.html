@@ -29,9 +29,9 @@
 				<th>Novembro</th>
 				<th>Dezembro</th>
 			</thead>
-			<tbody class="basel-table-body">
+			<tbody class="table-body">
 			<tr ng-repeat="item in custo_operacional">
-				<td>{{item.descricao}}</td>
+				<th>{{item.descricao}}</th>
 				<td>{{item.jan | number:2}}</td>
 				<td>{{item.fev | number:2}}</td>
 				<td>{{item.mar | number:2}}</td>
@@ -50,7 +50,7 @@
 
 		<table class="table table-responsive table-hover table-sm table-bordered">
 			<thead class="thead-inverse">
-				<th class="text-center">R$</th>
+				<th class="text-center">Descrição</th>
 				<th>Janeiro</th>
 				<th>Fevereiro</th>
 				<th>Março</th>
@@ -64,9 +64,9 @@
 				<th>Novembro</th>
 				<th>Dezembro</th>
 			</thead>
-			<tbody class="basel-table-body">
+			<tbody class="table-body">
 			<tr>
-				<td>Custo Total</td>
+				<th>Custo Total</th>
 				<td>{{total_operacional_mes[0] | number:2}}</td>
 				<td>{{total_operacional_mes[1] | number:2}}</td>
 				<td>{{total_operacional_mes[2] | number:2}}</td>
@@ -81,7 +81,7 @@
 				<td>{{total_operacional_mes[11] | number:2}}</td>
 			</tr>
 			<tr>
-				<td>Custo Total/Cabeca Com Reposição</td>
+				<th>Custo Total/Cabeca Com Reposição</th>
 				<td>{{total_operacional_c[0] | number:2}}</td>
 				<td>{{total_operacional_c[1] | number:2}}</td>
 				<td>{{total_operacional_c[2] | number:2}}</td>
@@ -96,7 +96,7 @@
 				<td>{{total_operacional_c[11] | number:2}}</td>
 			</tr>
 			<tr>
-				<td>Custo Total/Cabeca Sem Reposição</td>
+				<th>Custo Total/Cabeca Sem Reposição</th>
 				<td>{{total_operacional_s[0] | number:2}}</td>
 				<td>{{total_operacional_s[1] | number:2}}</td>
 				<td>{{total_operacional_s[2] | number:2}}</td>

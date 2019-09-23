@@ -3,10 +3,6 @@ app.controller("equilibrio", function($scope, $location, Propriedade){
 
 	var EQUILIBRIO_BD = [];
 	var CUSTO_OPERACIONAL_BD = [];
-	var TOTAL_OPERACIONAL = 0;
-	var TOTAL_FIXO = 0;
-	var ARROBAS = 0;
-	var PRECO_MEDIO = 0;
 
 	/* INICIA O CUSTO OPERACIONAL */
 	$scope.initCustoOperacional = function(){
@@ -23,10 +19,10 @@ app.controller("equilibrio", function($scope, $location, Propriedade){
 		});
 
 		if(res){
-			console.log("Carregou Custo Operacional..");
+			console.log("Operacional[OK]");
 			$scope.initEquilibrio();
 		}else{
-			console.log("Nao Carregou Custo Operacional..");
+			console.log("Operacional[ERRO]");
 			$location.path("/");
 		}
 	}
@@ -46,15 +42,20 @@ app.controller("equilibrio", function($scope, $location, Propriedade){
 		});
 
 		if(res){
-			console.log("Carregou Equilibrio..");
+			console.log("Equilibrio[OK]");
 			$scope.tratarEquilibrio();
 		}else{
-			console.log("Nao Carregou Equilibrio..");
+			console.log("Equilibrio[ERRO]");
 			$location.path("/custoOportunidade");
 		}
 	}
 
-	$scope.tratarCustoOperacional = function(){
+	$scope.tratarEquilibrio = function(){
+		var TOTAL_OPERACIONAL = 0;
+		var TOTAL_FIXO = 0;
+		var ARROBAS = 0;
+		var PRECO_MEDIO = 0;
+
 		for(i in CUSTO_OPERACIONAL_BD){
 			if(CUSTO_OPERACIONAL_BD[i].descricao == "Fixo"){
 				TOTAL_FIXO += CUSTO_OPERACIONAL_BD[i].jan;
@@ -84,10 +85,6 @@ app.controller("equilibrio", function($scope, $location, Propriedade){
 			TOTAL_OPERACIONAL += CUSTO_OPERACIONAL_BD[i].nov;
 			TOTAL_OPERACIONAL += CUSTO_OPERACIONAL_BD[i].dez;
 		}
-	}
-
-	$scope.tratarEquilibrio = function(){
-		$scope.tratarCustoOperacional();
 
 		for(i in EQUILIBRIO_BD){
 			switch(EQUILIBRIO_BD[i].descricao){
@@ -120,7 +117,6 @@ app.controller("equilibrio", function($scope, $location, Propriedade){
 		var id = $scope.form["id"];
 		delete $scope.form["id"];
 		delete $scope.form.$$hashKey;
-		$('#equilibrioModal').modal('hide');
 
 		basel.database.update("equilibrio", $scope.form, {id: id});
 		//$scope.new();
@@ -143,7 +139,7 @@ app.controller("equilibrio", function($scope, $location, Propriedade){
 			}
 		}
 
-		$('#equilibrioModal').modal('show');
+		$('#saveModal').modal('show');
 	}
 
 	//Excluindo

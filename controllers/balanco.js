@@ -24,10 +24,10 @@ app.controller("balanco", function($scope, $location, Propriedade){
 		}
 
 		if(res){
-			console.log("Carregou Balanco..");
+			console.log("Balanco[OK]");
 			$scope.tratarBalanco();
 		}else{
-			console.log("Nao Carregou Balanco..");
+			console.log("Balanco[ERRO]");
 			$scope.createBalanco();
 		}
 	}
@@ -93,6 +93,7 @@ app.controller("balanco", function($scope, $location, Propriedade){
 			}
 		}
 
+		$('#infoModal').modal('show');
 		$scope.initBalanco();
 	}
 
@@ -102,7 +103,6 @@ app.controller("balanco", function($scope, $location, Propriedade){
 		var id = $scope.form["id"];
 		delete $scope.form["id"];
 		delete $scope.form.$$hashKey;
-		$('#balancoModal').modal('hide');
 
 		basel.database.update("balanco", $scope.form, {id: id});
 		$scope.initBalanco();
@@ -124,12 +124,12 @@ app.controller("balanco", function($scope, $location, Propriedade){
 
 	$scope.edit = function(data){
 		$scope.form = data;
-		$('#balancoModal').modal('show');
+		$('#saveModal').modal('show');
 	}
 
 	//Excluindo
 	$scope.delete = function(data){
-		if(confirm("Deseja Resetar Balanco?")){
+		if(confirm("Resetar Balanco?")){
 			basel.database.delete("balanco", {propriedadeId_FK : Propriedade.getId()});
 		}
 		$location.path('/');

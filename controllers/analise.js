@@ -5,10 +5,6 @@ app.controller("analise", function($scope, $location, Propriedade){
 	var VARIACAO_REBANHO_AREA_BD = [];
 	var RECEITA_BD = [];
 	var INVENTARIO_BD = [];
-	var TOTAL_RECEITA = 0;
-	var TOTAL_INVENTARIO = 0;
-	var TOTAL_AREA = 0;
-	var TOTAL_CUSTO_TOTAL = [0, 0, 0, 0];
 
 	/* INICIA A AREA */
 	$scope.initRebanhoArea = function(){
@@ -25,10 +21,10 @@ app.controller("analise", function($scope, $location, Propriedade){
 		});
 
 		if(res){
-			console.log("Carregou Rebanho..");
+			console.log("AreaRebanho[OK]");
 			$scope.initInventario();
 		}else{
-			console.log("Nao Carregou Rebanho..");
+			console.log("AreaRebanho[ERRO]");
 			$location.path("/variacaoRebanho");
 		}
 	}
@@ -50,10 +46,10 @@ app.controller("analise", function($scope, $location, Propriedade){
 		});
 
 		if(res){
-			console.log("Carregou Inventario..");
+			console.log("Inventario[OK]");
 			$scope.initReceita();
 		}else{
-			console.log("Nao Carregou Inventario..");
+			console.log("Inventario[Erro]");
 			$location.path("/inventario");
 		}
 	}
@@ -75,10 +71,10 @@ app.controller("analise", function($scope, $location, Propriedade){
 		});
 
 		if(res){
-			console.log("Carregou Receita..");
+			console.log("Receita[OK]");
 			$scope.initCustoTotal();
 		}else{
-			console.log("Nao Carregou Receita..");
+			console.log("Receita[Erro]");
 			$location.path("/receita");
 		}
 	}
@@ -98,21 +94,54 @@ app.controller("analise", function($scope, $location, Propriedade){
 		});
 
 		if(res){
-			console.log("Carregou Custo Total..");
+			console.log("CustoTotal[OK]");
 			$scope.tratarAnalise();
 		}else{
-			console.log("Nao Carregou Custo Total..");
+			console.log("CustoTotal[ERRO]");
 			$location.path("/");
 		}
 	}
 
-	$scope.tratarInventario = function(){
+	$scope.tratarAnalise = function(){
+		var AUX;
+		var TOTAL_RECEITA = 0;
+		var TOTAL_INVENTARIO = 0;
+		var TOTAL_AREA = 0;
+		var TOTAL_CUSTO_TOTAL = [0, 0, 0, 0];
+		
 		for(i in INVENTARIO_BD){
 			TOTAL_INVENTARIO += (INVENTARIO_BD[i].valor_inicial + INVENTARIO_BD[i].valor_final)/2;
 		}
-	}
 
-	$scope.tratarReceita = function(){
+		for(i in CUSTO_TOTAL_BD){
+			switch(CUSTO_TOTAL_BD[i].descricao){
+				case "Fixo" :
+					AUX = 0;
+					break;
+				case "Variavel" :
+					AUX = 1;
+					break;
+				case "Administrativo" :
+					AUX = 2;
+					break;
+				case "Oportunidade" :
+					AUX = 3;
+			}
+
+			TOTAL_CUSTO_TOTAL[AUX] += CUSTO_TOTAL_BD[i].jan;
+			TOTAL_CUSTO_TOTAL[AUX] += CUSTO_TOTAL_BD[i].fev;
+			TOTAL_CUSTO_TOTAL[AUX] += CUSTO_TOTAL_BD[i].mar;
+			TOTAL_CUSTO_TOTAL[AUX] += CUSTO_TOTAL_BD[i].abr;
+			TOTAL_CUSTO_TOTAL[AUX] += CUSTO_TOTAL_BD[i].mai;
+			TOTAL_CUSTO_TOTAL[AUX] += CUSTO_TOTAL_BD[i].jun;
+			TOTAL_CUSTO_TOTAL[AUX] += CUSTO_TOTAL_BD[i].jul;
+			TOTAL_CUSTO_TOTAL[AUX] += CUSTO_TOTAL_BD[i].ago;
+			TOTAL_CUSTO_TOTAL[AUX] += CUSTO_TOTAL_BD[i].sem;
+			TOTAL_CUSTO_TOTAL[AUX] += CUSTO_TOTAL_BD[i].out;
+			TOTAL_CUSTO_TOTAL[AUX] += CUSTO_TOTAL_BD[i].nov;
+			TOTAL_CUSTO_TOTAL[AUX] += CUSTO_TOTAL_BD[i].dez;
+		}
+
 		for(i in RECEITA_BD){
 			TOTAL_RECEITA += RECEITA_BD[i].jan;
 			TOTAL_RECEITA += RECEITA_BD[i].fev;
@@ -127,54 +156,12 @@ app.controller("analise", function($scope, $location, Propriedade){
 			TOTAL_RECEITA += RECEITA_BD[i].nov;
 			TOTAL_RECEITA += RECEITA_BD[i].dez;
 		}
-	}
 
-	$scope.tratarArea = function(){
 		for(i=0; i<12; i++){
 			TOTAL_AREA += $scope.getArea(i);
 		}
 
 		TOTAL_AREA /= 12;
-	}
-
-	$scope.tratarCustoTotal = function(){
-		var v;
-
-		for(i in CUSTO_TOTAL_BD){
-			switch(CUSTO_TOTAL_BD[i].descricao){
-				case "Fixo" :
-					v = 0;
-					break;
-				case "Variavel" :
-					v = 1;
-					break;
-				case "Administrativo" :
-					v = 2;
-					break;
-				case "Oportunidade" :
-					v = 3;
-			}
-
-			TOTAL_CUSTO_TOTAL[v] += CUSTO_TOTAL_BD[i].jan;
-			TOTAL_CUSTO_TOTAL[v] += CUSTO_TOTAL_BD[i].fev;
-			TOTAL_CUSTO_TOTAL[v] += CUSTO_TOTAL_BD[i].mar;
-			TOTAL_CUSTO_TOTAL[v] += CUSTO_TOTAL_BD[i].abr;
-			TOTAL_CUSTO_TOTAL[v] += CUSTO_TOTAL_BD[i].mai;
-			TOTAL_CUSTO_TOTAL[v] += CUSTO_TOTAL_BD[i].jun;
-			TOTAL_CUSTO_TOTAL[v] += CUSTO_TOTAL_BD[i].jul;
-			TOTAL_CUSTO_TOTAL[v] += CUSTO_TOTAL_BD[i].ago;
-			TOTAL_CUSTO_TOTAL[v] += CUSTO_TOTAL_BD[i].sem;
-			TOTAL_CUSTO_TOTAL[v] += CUSTO_TOTAL_BD[i].out;
-			TOTAL_CUSTO_TOTAL[v] += CUSTO_TOTAL_BD[i].nov;
-			TOTAL_CUSTO_TOTAL[v] += CUSTO_TOTAL_BD[i].dez;
-		}
-	}
-
-	$scope.tratarAnalise = function(){
-		$scope.tratarInventario();
-		$scope.tratarCustoTotal();
-		$scope.tratarReceita();
-		$scope.tratarArea();
 
 		$scope.total_fixo = TOTAL_CUSTO_TOTAL[0];
 		$scope.total_variavel = TOTAL_CUSTO_TOTAL[1];

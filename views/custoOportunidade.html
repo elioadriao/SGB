@@ -10,7 +10,7 @@
 					</li>
 
 					<li class="navbar-right" role="presentation">
-						<a href="" data-toggle="modal" data-target="#custoOportunidadeModal"><span class="glyphicon glyphicon-pencil"></span></a>
+						<a href="" data-toggle="modal" data-target="#saveModal"><span class="glyphicon glyphicon-pencil"></span></a>
 					</li>
 			</ul>
 		</div>
@@ -23,30 +23,30 @@
 					<th>1º Da Terra</th>
 					<th>Valores</th>
 				</thead>
-				<tbody class="basel-table-body">
+				<tbody class="table-body">
 				<tr>
-					<td>Aluguel<small>(CA/MES)</small></td>
+					<th>Aluguel<small>(CA/MES)</small></th>
 					<td>{{custoOp.aluguel_valor | number:2}}</td>
 				</tr>
 				<tr>
-					<td>Tempo de Aluguel<small>(MESES)</small></td>
+					<th>Tempo de Aluguel<small>(MESES)</small></th>
 					<td>{{custoOp.aluguel_tempo | number:1}}</td>
 				</tr>
 				<tr>
-					<td>CA/HA</td>
+					<th>CA/HA</th>
 					<td>{{custoOp.densidade | number:2}}</td>
 				</tr>
 				<tr>
-					<td>Receita/Ha/Ano</td>
+					<th>Receita/Ha/Ano</th>
 					<td>{{custoOp.receita | number:2}}</td>
 				</tr>
 				<tr>
-					<td>Valor Terra<small>(HA)</small></td>
+					<th>Valor Terra<small>(HA)</small></th>
 					<td>{{custoOp.valor_terra_ha | number:2}}</td>
 				</tr>
 				<tr>
 					<th>Receita na Area Util</th>
-					<th>{{custoOp.valor_total_terra | number:2}}</th>
+					<td>{{custoOp.valor_total_terra | number:2}}</td>
 				</tr>
 				</tbody>
 			</table>
@@ -57,30 +57,30 @@
 					<th>2º Dos Animais</th>
 					<th>Valores</th>
 				</thead>
-				<tbody class="basel-table-body">
+				<tbody class="table-body">
 				<tr>
 					<th>Imobilizado</th>
-					<th>{{custoOp.imobilizado | number:2}}</th>
+					<td>{{custoOp.imobilizado | number:2}}</td>
 				</tr>
 				<tr>
-					<td>Custo Oportunidade</td>
+					<th>Custo Oportunidade</th>
 					<td>{{custoOp.oportunidade*100 | number:1}} %</td>
 				</tr>
 				<tr>
-					<td>Taxa SELIC</td>
+					<th>Taxa SELIC</th>
 					<td>{{custoOp.selic*100 | number:1}} %</td>
 				</tr>
 				<tr>
-					<td>Imposto Bancario</td>
+					<th>Imposto Bancario</th>
 					<td>{{custoOp.imposto*100 | number:1}} %</td>
 				</tr>
 				<tr>
-					<td>Inflação</td>
+					<th>Inflação</th>
 					<td>{{custoOp.inflacao*100 | number:1}} %</td>
 				</tr>
 				<tr>
 					<th>Total</th>
-					<th>{{custoOp.valor_total_animais | number:2}}</th>
+					<td>{{custoOp.valor_total_animais | number:2}}</td>
 				</tr>
 				</tbody>
 			</table>
@@ -91,30 +91,30 @@
 					<th>3º Dos Desembolsos</th>
 					<th>Valores</th>
 				</thead>
-				<tbody class="basel-table-body">
+				<tbody class="table-body">
 				<tr>
 					<th>Operacional</th>
-					<th>{{custoOp.operacional | number:2}}</th>
+					<td>{{custoOp.operacional | number:2}}</td>
 				</tr>
 				<tr>
-					<td>Custo Oportunidade</td>
+					<th>Custo Oportunidade</th>
 					<td>{{custoOp.oportunidade*50 | number:2}} %</td>
 				</tr>
 				<tr>
-					<td>Taxa SELIC</td>
+					<th>Taxa SELIC</th>
 					<td>{{custoOp.selic*100 | number:1}} %</td>
 				</tr>
 				<tr>
-					<td>Imposto Bancario</td>
+					<th>Imposto Bancario</th>
 					<td>{{custoOp.imposto*100 | number:1}} %</td>
 				</tr>
 				<tr>
-					<td>Inflação</td>
+					<th>Inflação</th>
 					<td>{{custoOp.inflacao*100 | number:1}} %</td>
 				</tr>
 				<tr>
 					<th>Total</th>
-					<th>{{custoOp.valor_total_desembolsos | number:2}}</th>
+					<td>{{custoOp.valor_total_desembolsos | number:2}}</td>
 				</tr>
 				</tbody>
 			</table>
@@ -125,38 +125,38 @@
 					<th>Indices Produtivos</th>
 					<th>Valores</th>
 				</thead>
-				<tbody class="basel-table-body">
+				<tbody class="table-body">
 				<tr>
-					<td>Rebanho<small>(CA)</small></td>
+					<th>Rebanho<small>(CA)</small></th>
 					<td>{{custoOp.rebanho | number:1}}</td>
 				</tr>
 				<tr>
-					<td>Peso Medio<small>(KG)</small></td>
+					<th>Peso Medio<small>(KG)</small></th>
 					<td>{{custoOp.peso | number:1}}</td>
 				</tr>
 				<tr>
-					<td>Area Reserva<small>(HA)</small></td>
+					<th>Area Reserva<small>(HA)</small></th>
 					<td>{{custoOp.area_reserva | number:1}}</td>
 				</tr>
 				<tr>
-					<td>Area Util(HA)</td>
+					<th>Area Util(HA)</th>
 					<td>{{custoOp.area | number:1}}</td>
 				</tr>
 				<tr>
-					<td>Ganho<small>(@/CA/ANO)</small></td>
+					<th>Ganho<small>(@/CA/ANO)</small></th>
 					<td>{{custoOp.ganho_arroba | number:1}}</td>
 				</tr>
 				<tr>
-					<td>Lotação<small>(CA/HA)</small></td>
+					<th>Lotação<small>(CA/HA)</small></th>
 					<td>{{custoOp.lotacao | number:2}}</td>
 				</tr>
 				<tr>
-					<td>Produtividade<small>(@/HA)</small></td>
+					<th>Produtividade<small>(@/HA)</small></th>
 					<td>{{custoOp.produtividade | number:2}}</td>
 				</tr>
 				<tr>
 					<th>Total Produzido<small>(@)</small></th>
-					<th>{{custoOp.total_arroba | number:1}}</th>
+					<td>{{custoOp.total_arroba | number:1}}</td>
 				</tr>
 				</tbody>
 			</table>
@@ -167,44 +167,44 @@
 					<th>Indices Economicos</th>
 					<th>Valores</th>
 				</thead>
-				<tbody class="basel-table-body">
+				<tbody class="table-body">
 				<tr>
-					<td>Em Terra</td>
+					<th>Em Terra</th>
 					<td>{{custoOp.valor_terra | number:2}}</td>
 				</tr>
 				<tr>
-					<td>Em Animais</td>
+					<th>Em Animais</th>
 					<td>{{custoOp.valor_animais | number:2}}</td>
 				</tr>
 				<tr>
-					<td>Desembolsos</td>
+					<th>Desembolsos</th>
 					<td>{{custoOp.valor_desembolso | number:2}}</td>
 				</tr>
 				<tr>
 					<th>Total</th>
-					<th>{{custoOp.valor_economico | number:2}}</th>
+					<td>{{custoOp.valor_economico | number:2}}</td>
 				</tr>
 				<tr >
 					<th colspan="2" class="text-center"></th>
 				</tr>
 				<tr>
 					<th>Somatoria Total (1º+2º+3º)</th>
-					<th>{{custoOp.somatoria | number:2}}</th>
+					<td>{{custoOp.somatoria | number:2}}</td>
 				</tr>
 				<tr>
 					<th>Remuneração</th>
-					<th>{{(custoOp.somatoria/custoOp.valor_economico)*100 | number:1}} %</th>
+					<td>{{(custoOp.somatoria/custoOp.valor_economico)*100 | number:1}} %</td>
 				</tr>
 				</tbody>
 			</table>
 		</div>
 	</div>
 
-	<div class="modal fade" id="custoOportunidadeModal" role="dialog">
+	<div class="modal fade" id="saveModal" role="dialog">
 		<div class="modal-dialog" role="document">
 			<div class="modal-content">
 				<div class="modal-header">
-					<h4 class="modal-title" id="myModalLabel">Componentes de Calculo Custo de Oportunidade</h4>
+					<h4 class="modal-title" id="myModalLabel">Componentes de Cálculo Custo de Oportunidade</h4>
 				</div>
 
 				<div class="modal-body">
@@ -213,44 +213,63 @@
 						<input type="hidden" class="form-control" ng-model="form.propriedadeId_FK">
 
 						<div class="form-group col-md-4">
-							<label>Area de Reserva P.A.A.</label><input type="text" class="form-control" ng-model="form.area_reserva">
+							<label>Area de Reserva P.A.A.</label><input type="number" class="form-control" ng-model="form.area_reserva">
 						</div>
 
 						<div class="form-group col-md-4">
-							<label>Ganho Arroba/Ano</label><input type="text" class="form-control" ng-model="form.ganho_arroba">
+							<label>Ganho Arroba/Ano</label><input type="number" class="form-control" ng-model="form.ganho_arroba">
 						</div>
 
 						<div class="form-group col-md-4">
-							<label>Tempo de Aluguel</label><input type="text" class="form-control" ng-model="form.aluguel_tempo">
+							<label>Tempo de Aluguel</label><input type="number" class="form-control" ng-model="form.aluguel_tempo">
 						</div>
 
 						<div class="form-group col-md-4">
-							<label>Valor de Aluguel</label><input type="text" class="form-control" ng-model="form.aluguel_valor">
+							<label>Valor de Aluguel</label><input type="number" class="form-control" ng-model="form.aluguel_valor">
 						</div>
 
 						<div class="form-group col-md-4">
-							<label>Taxa SELIC</label><input type="text" class="form-control" ng-model="form.selic">
+							<label>Taxa SELIC</label><input type="number" class="form-control" ng-model="form.selic">
 						</div>
 
 						<div class="form-group col-md-4">
-							<label>Imposto Bancario</label><input type="text" class="form-control" ng-model="form.imposto">
+							<label>Imposto Bancario</label><input type="number" class="form-control" ng-model="form.imposto">
 						</div>
 
 						<div class="form-group col-md-4">
-							<label>Inflação</label><input type="text" class="form-control" ng-model="form.inflacao">
+							<label>Inflação</label><input type="number" class="form-control" ng-model="form.inflacao">
 						</div>
 					</form>
 				</div>
 
 				<div class="modal-footer">
 					<div class="btn-group btn-group-justified" role="group">
-                        <div class="btn-group" role="group">
-                            <button class="btn btn-success" ng-click="save()"><span class="glyphicon glyphicon-ok"></button>
-                        </div>
-                        <div class="btn-group" role="group">
-                            <button class="btn btn-default" ng-click="cancel()" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></button>
-                        </div>
-                    </div>
+            <div class="btn-group" role="group">
+              <button class="btn btn-success" ng-click="save()" data-dismiss="modal"><span class="glyphicon glyphicon-ok"></button>
+            </div>
+            <div class="btn-group" role="group">
+              <button class="btn btn-default" ng-click="cancel()" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></button>
+            </div>
+          </div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="modal fade" id="infoModal" role="dialog">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button>
+					<h4 class="modal-title text-center text-info">Dados Não Encontrados</h4>
+				</div>
+
+				<div class="modal-body">
+					<h4>
+						Foram gerados dados padrões para os valores de Custo de Oportunidade.<hr>
+						Para Editar use: <span class="glyphicon glyphicon-pencil"></span><hr>
+						Para Excluir use: <span class="glyphicon glyphicon-trash"></span>
+					</h4>
 				</div>
 			</div>
 		</div>
