@@ -2,6 +2,7 @@ var electron = require('electron');
 var app = electron.app;
 var BrowserWindow = electron.BrowserWindow;
 var Menu = electron.Menu;
+var globalShortcut = electron.globalShortcut;
 
 var mainWindow = null;
 
@@ -17,7 +18,10 @@ app.on('ready', function() {
   mainWindow = new BrowserWindow({ width: 1280, height: 720 });
 
   mainWindow.loadURL('file://' + __dirname + '/index.html');
-  mainWindow.webContents.openDevTools();
+
+  globalShortcut.register('CommandOrControl+I', () => {
+    mainWindow.webContents.toggleDevTools();
+  });
 
   mainWindow.on('closed', function() {
     mainWindow = null;
